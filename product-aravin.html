@@ -109,7 +109,10 @@ h1{font-size:clamp(34px,5.2vw,60px);line-height:1.35;font-weight:700}
 .try-box{border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(28px,5vw,56px);display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:center}
 .try-box p{color:var(--muted);margin-top:10px;max-width:30em}
 .try-links{display:flex;flex-wrap:wrap;gap:12px}
-
+.cred{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.cred div{display:flex;flex-direction:column;gap:2px;padding:10px 18px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--panel)}
+.cred span{color:var(--muted);font-size:13px;line-height:1.6}
+.cred code{font-family:ui-monospace,Consolas,monospace;font-size:17px;direction:ltr;text-align:right;color:var(--text)}
 /* مراحل */
 .steps{list-style:none;padding:0;margin-top:56px;counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
 .steps li{position:relative;border-top:2px solid var(--line);padding-top:30px}
@@ -259,10 +262,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 <section class="block" style="padding-top:0">
   <div class="wrap">
-    <div class="try-box">
+        <div class="try-box">
       <div>
         <h2>خودتان امتحان کنید</h2>
-        <p>سایت معرفی سالن و پنل مدیریت را با اطلاعات نمونه ببینید. نام کاربری و رمز پنل نمایشی را با پیام برایتان می‌فرستم.</p>
+        <p>سایت معرفی سالن و پنل مدیریت را با اطلاعات نمونه ببینید. با اطلاعات زیر وارد پنل شوید. این نسخه فقط برای مشاهده است و ثبت یا ارسال در آن غیرفعال است.</p>
+        <div class="cred">
+          <div><span>نام کاربری</span><code>demo</code></div>
+          <div><span>رمز عبور</span><code>demo1234</code></div>
+        </div>
       </div>
       <div class="try-links" id="demoLinks">
         <a class="btn btn-primary" href="https://t.me/adehnavi" data-tg id="demoAsk">درخواست ورود نمایشی</a>
@@ -356,8 +363,8 @@ const CONFIG = {
   brand: 'آراوین',
   telegram: 'adehnavi',
   email: 'amirnd.work@gmail.com',
-  demoSiteUrl: '',   // آدرس سایت نمایشی سالن
-  demoPanelUrl: '',  // آدرس ورود به پنل نمایشی
+  demoSiteUrl: 'https://demo.andev.ir/',
+  demoPanelUrl: 'https://demo.andev.ir/login.html',
   pricing: {
     setup: '',       // مثلا: ۵ میلیون تومان
     monthly: '',     // مثلا: ۸۰۰ هزار تومان
