@@ -174,7 +174,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <a href="#roles">امکانات</a>
       <a href="#pricing">هزینه</a>
       <a href="#faq">سوال‌ها</a>
-      <a class="btn btn-primary" href="https://t.me/adehnavi" data-tg>درخواست نمونه</a>
+      <a class="btn btn-primary" href="tel:+989154182182" data-tel>تماس <bdi dir="ltr">0915 418 2182</bdi></a>
     </nav>
   </header>
 </div>
@@ -187,7 +187,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <h1>پیام مشتری و نوبت سالن، در یک صفحه</h1>
       <p class="lead">مشتری در تلگرام یا بله پیام می‌دهد. شما همان‌جا جواب می‌دهید، نوبتش را با تقویم شمسی ثبت می‌کنید و تایید نوبت خودکار برایش می‌رود.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://t.me/adehnavi" data-tg>درخواست نمونه</a>
         <a class="btn btn-ghost" href="#roles">دیدن امکانات</a>
       </div>
     </div>
@@ -339,13 +338,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 <section class="block" style="padding-top:0">
   <div class="wrap">
-    <h2>یک پیام کافی است</h2>
-    <p class="hint" style="margin-top:12px">روی پیام بزنید. تلگرام باز می‌شود و متن آماده ارسال است.</p>
+        <h2>یک تماس کافی است</h2>
+    <p class="hint" style="margin-top:12px">با موبایل روی شماره بزنید تا تماس برقرار شود.</p>
     <div class="bubbles">
-      <a class="bubble tg" href="https://t.me/adehnavi" data-tg id="tgBubble">سلام، می‌خواهم نمونه آراوین را ببینم.</a>
+      <a class="bubble tg" href="tel:+989154182182" data-tel id="telBubble">تماس بگیرید: <bdi dir="ltr">0915 418 2182</bdi></a>
       <a class="bubble mail" href="mailto:amirnd.work@gmail.com" id="mailBubble"><bdi dir="ltr">amirnd.work@gmail.com</bdi></a>
     </div>
-  </div>
 </section>
 
 </main>
@@ -363,6 +361,7 @@ const CONFIG = {
   brand: 'آراوین',
   telegram: 'adehnavi',
   email: 'amirnd.work@gmail.com',
+  phone: '09154182182',
   demoSiteUrl: 'https://demo.andev.ir/',
   demoPanelUrl: 'https://demo.andev.ir/login.html',
   pricing: {
@@ -379,13 +378,13 @@ const CONFIG = {
   document.querySelectorAll('[data-brand]').forEach(function (el) { el.textContent = c.brand; });
   document.title = c.brand + ': مدیریت نوبت و پیام مشتریان سالن';
 
-  /* لینک‌های تلگرام و ایمیل */
+   /* لینک‌های تلگرام، تلفن و ایمیل */
   var text = 'سلام، می‌خواهم نمونه ' + c.brand + ' را ببینم.';
   var tgUrl = 'https://t.me/' + c.telegram + '?text=' + encodeURIComponent(text);
   document.querySelectorAll('[data-tg]').forEach(function (a) { a.href = tgUrl; });
-  document.getElementById('tgBubble').textContent = text;
+  var tel = 'tel:+98' + c.phone.replace(/^0/, '');
+  document.querySelectorAll('[data-tel]').forEach(function (a) { a.href = tel; });
   document.getElementById('mailBubble').href = 'mailto:' + c.email + '?subject=' + encodeURIComponent('درخواست نمونه ' + c.brand);
-
   /* لینک‌های نمایشی */
   if (c.demoSiteUrl || c.demoPanelUrl) {
     var box = document.getElementById('demoLinks');
