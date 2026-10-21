@@ -3,12 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>آراوین: مدیریت نوبت و پیام مشتریان سالن</title>
-<meta name="description" content="پیام‌های تلگرام و بله، نوبت‌دهی با تقویم شمسی و تایید خودکار نوبت برای سالن‌های زیبایی، در یک پنل.">
+<title>آراوین: پنل مدیریت پیام و نوبت سالن‌های زیبایی</title>
+<meta name="description" content="آراوین پیام‌های تلگرام و بله، نوبت‌ها و پرونده مشتری سالن‌های زیبایی را در یک پنل منظم جمع می‌کند.">
 <script>document.documentElement.classList.add('js');</script>
 
+<!--
+  این فایل صفحه اصلی سایت است (public/index.html).
+  صفحه قبلی سالن باید به public/salon.html منتقل شود.
+  شماره تماس: tel:09154182182 و نمایش ۰۹۱۵ ۴۱۸ ۲۱۸۲ (چند جا تکرار شده)
+  تلگرام: https://t.me/adehnavi
+  ایمیل: amirnd.work@gmail.com
+  ورود به پنل (نوار بالا): /login.html
+  پنل نمایشی: https://demo.andev.ir/login.html
+  سایت نمایشی: https://demo.andev.ir/salon.html
+  فونت‌ها: public/fonts/Vazirmatn و public/fonts/Samim (همان‌هایی که در پروژه هست)
+-->
+
 <style>
-/* فونت‌ها: پوشه fonts را از پروژه سالن به ریشه سایت شخصی کپی کنید */
 @font-face{font-family:'Vazirmatn';src:url('/fonts/Vazirmatn/Vazirmatn-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:'Vazirmatn';src:url('/fonts/Vazirmatn/Vazirmatn-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:'Vazirmatn';src:url('/fonts/Vazirmatn/Vazirmatn-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
@@ -17,445 +28,806 @@
 @font-face{font-family:'Samim';src:url('/fonts/Samim/Samim-Bold-FD.woff2') format('woff2'),url('/fonts/Samim/Samim-Bold-FD.woff') format('woff');font-weight:700;font-display:swap}
 
 :root{
-  --bg:#14161B;
-  --panel:#1C1F26;
-  --panel-2:#252933;
-  --line:#2E333E;
-  --text:#EEEBE6;
-  --muted:#A0A6B1;
-  --accent:#FF7A2F;
-  --accent-ink:#1B1006;
-  --r-lg:22px;
-  --r-md:14px;
-  --r-sm:10px;
+  --ivory:#F8F6F2;
+  --white:#FFFDFC;
+  --ink:#252321;
+  --sage:#8E9A83;
+  --beige:#D8C7B5;
+  --bronze:#B69A72;
+  --mute:#77716A;
+  --mute-tint:#5F5A54;
+  --line:rgba(37,35,33,.12);
+  --beige-soft:#EEE6DC;
+  --sage-soft:#E6EBE1;
+  --f-head:'Vazirmatn','Samim',Tahoma,sans-serif;
+  --f-body:'Samim','Vazirmatn',Tahoma,sans-serif;
+  --wrap:min(1240px,92vw);
 }
 
 *{box-sizing:border-box;margin:0}
 [hidden]{display:none!important}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Samim',Tahoma,system-ui,sans-serif;font-size:17px;line-height:1.95;-webkit-font-smoothing:antialiased}
-h1,h2,h3,.brand,.btn,.tab,summary{font-family:'Vazirmatn','Samim',Tahoma,sans-serif}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--ivory);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+ul,ol{list-style:none;padding:0}
+button{font:inherit;color:inherit}
+svg{display:block}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
+.dark :focus-visible{outline-color:var(--ivory)}
 
-.wrap{width:min(1120px,92vw);margin-inline:auto}
-.block{padding:clamp(64px,9vw,120px) 0}
+.wrap{width:var(--wrap);margin-inline:auto}
+.sec{padding-block:clamp(80px,10vw,150px)}
+.band{background:var(--white);border-block:1px solid var(--line)}
 
-h2{font-size:clamp(28px,3.6vw,42px);line-height:1.45;font-weight:700}
+h1,h2,h3{font-family:var(--f-head);font-weight:700}
+h2{font-size:clamp(30px,3.8vw,52px);line-height:1.45}
+h3{font-size:20px;line-height:1.6}
+.intro{color:var(--mute);max-width:34em;margin-top:18px;font-size:18px}
 
 /* دکمه‌ها */
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 24px;border-radius:var(--r-sm);font-weight:700;font-size:16px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:transform .15s,background .2s,border-color .2s}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 28px;border-radius:999px;font-family:var(--f-head);font-weight:500;font-size:16px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,transform .15s}
 .btn:active{transform:translateY(1px)}
-.btn-primary{background:var(--accent);color:var(--accent-ink)}
-.btn-primary:hover{background:#ff8d4d}
-.btn-ghost{border-color:var(--line);color:var(--text);background:transparent}
-.btn-ghost:hover{border-color:var(--muted)}
+.btn-lg{min-height:54px;padding:0 34px;font-size:17px}
+.btn-ink{background:var(--ink);color:var(--ivory)}
+.btn-ink:hover{background:#3b3835}
+.btn-line{border-color:rgba(37,35,33,.3);color:var(--ink);background:transparent}
+.btn-line:hover{border-color:var(--ink)}
+.btn-ivory{background:var(--ivory);color:var(--ink)}
+.btn-ivory:hover{background:#fff}
+.btn-ghost{border-color:rgba(248,246,242,.4);color:var(--ivory)}
+.btn-ghost:hover{border-color:var(--ivory)}
 
-/* سربرگ */
-.top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0}
-.brand{font-weight:700;font-size:24px;text-decoration:none;color:var(--accent)}
-.nav{display:flex;align-items:center;gap:28px}
-.nav a:not(.btn){text-decoration:none;color:var(--muted);font-size:16px}
-.nav a:not(.btn):hover{color:var(--text)}
+/* نوار بالا */
+.nav{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:background .25s,border-color .25s}
+.nav.scrolled{background:rgba(248,246,242,.8);-webkit-backdrop-filter:saturate(1.2) blur(14px);backdrop-filter:saturate(1.2) blur(14px);border-bottom-color:var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-head);font-weight:700;font-size:25px}
+.menu{display:flex;align-items:center;gap:32px}
+.menu a{text-decoration:none;color:var(--mute-tint);font-size:16px;transition:color .2s}
+.menu a:hover{color:var(--ink)}
+.menu .m-login{display:none}
+.nav-act{display:flex;align-items:center;gap:22px}
+.login{text-decoration:none;color:var(--mute-tint);font-size:16px}
+.login:hover{color:var(--ink)}
+.burger{display:none;width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;align-items:center;justify-content:center}
 
 /* بخش اول */
-.hero{padding-top:clamp(28px,5vw,64px);padding-bottom:clamp(56px,8vw,100px)}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,6vw,80px);align-items:center}
-h1{font-size:clamp(34px,5.2vw,60px);line-height:1.35;font-weight:700}
-.lead{color:var(--muted);font-size:19px;max-width:34em;margin-top:22px}
-.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hero{padding-top:clamp(24px,4vw,56px);padding-bottom:clamp(72px,9vw,130px)}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(32px,5vw,72px);align-items:center}
+h1{font-size:clamp(38px,5.4vw,76px);line-height:1.3;letter-spacing:0}
+h1 span{display:block}
+.lead{font-size:clamp(17px,1.5vw,20px);color:var(--mute-tint);max-width:31em;margin-top:26px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:38px}
+.assure{display:flex;align-items:center;gap:12px;margin-top:34px;color:var(--mute-tint);font-size:15px}
+.assure::before{content:"";width:34px;height:1px;background:var(--bronze);flex:none}
 
-/* نمونه گفتگو */
-.chat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
-.chat-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line);font-family:'Vazirmatn',sans-serif;font-size:15px;font-weight:500}
-.chat-head small{color:var(--muted);font-family:'Samim',sans-serif;font-size:13px}
-.chat-body{display:flex;flex-direction:column;gap:12px;padding:22px 20px;min-height:350px}
-.msg{max-width:82%;padding:11px 16px;border-radius:16px;font-size:16px;line-height:1.8}
-.msg.in{align-self:flex-start;background:var(--panel-2);border-end-start-radius:4px}
-.msg.out{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-end-end-radius:4px}
-.confirm{align-self:flex-end;max-width:90%;border:1px solid var(--line);border-inline-start:3px solid var(--accent);border-radius:var(--r-md);padding:12px 16px;font-size:15px}
-.confirm .cap{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin-top:8px}
-.confirm svg{flex:none}
-.js .chat-body [data-msg]:not(.show){display:none}
-.chat-body [data-msg].show{animation:pop .35s ease both}
-.typing{display:flex;gap:5px;padding:15px 17px}
-.typing i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.3;animation:blink 1s infinite}
-.typing i:nth-child(2){animation-delay:.15s}
-.typing i:nth-child(3){animation-delay:.3s}
-@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
-@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes fade{from{opacity:0}to{opacity:1}}
+/* ترکیب تصویری محصول در قاب آینه */
+.stage{position:relative;width:100%;max-width:560px;aspect-ratio:1/1.1;margin-inline:auto}
+.arch{position:absolute;inset:0 13%;border-radius:999px 999px 28px 28px;background:var(--beige-soft)}
+.arch::after{content:"";position:absolute;inset:14px;border:1px solid rgba(182,154,114,.75);border-radius:999px 999px 18px 18px}
+.pn{position:absolute;background:var(--white);border:1px solid rgba(37,35,33,.08);border-radius:18px;box-shadow:0 22px 44px -28px rgba(37,35,33,.45);font-family:var(--f-head);font-size:13px;line-height:1.7}
+.pn small{display:block;color:var(--mute-tint);font-size:12px}
+.p-chat{right:0;top:30%;width:72%;padding:14px;display:flex;flex-direction:column;gap:8px;z-index:2}
+.p-cal{left:0;top:5%;width:52%;padding:14px;z-index:3}
+.p-ok{left:5%;bottom:6%;width:62%;padding:12px 14px;display:flex;align-items:center;gap:12px;z-index:4}
+.pn-head{display:flex;align-items:center;gap:10px}
+.pn-head b{font-weight:500}
+.pn-head .tag{margin-inline-start:auto}
+.av{width:34px;height:34px;border-radius:50%;background:var(--sage-soft);color:var(--ink);display:grid;place-items:center;font-weight:500;flex:none}
+.tag{font-size:12px;padding:2px 10px;border-radius:999px;background:var(--beige-soft);color:var(--mute-tint);white-space:nowrap}
+.bub{max-width:88%;padding:7px 12px;border-radius:14px;font-family:var(--f-body);font-size:13px;line-height:1.75}
+.bub.in{align-self:flex-start;background:var(--beige-soft);border-end-start-radius:4px}
+.bub.out{align-self:flex-end;background:var(--sage-soft);border-end-end-radius:4px}
+.cal-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+.cal-top b{font-weight:500}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.days i{font-style:normal;font-size:12px;padding:3px 0;border-radius:8px;color:var(--ink);line-height:1.5}
+.days i em{display:block;font-style:normal;font-size:10px;color:var(--mute-tint)}
+.days i.sel{background:var(--ink);color:var(--ivory)}
+.days i.sel em{color:rgba(248,246,242,.8)}
+.days i.off{color:#a39d95}
+.slots{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
+.slots span{font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line)}
+.slots .on{border-color:var(--sage);background:var(--sage-soft)}
+.slots .x{color:#a39d95;text-decoration:line-through}
+.ok-ic{width:30px;height:30px;border-radius:50%;background:var(--sage);display:grid;place-items:center;flex:none}
+.p-ok b{font-weight:500}
 
-/* جمله‌های مشکل */
-.statement{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.pain{font-family:'Vazirmatn',sans-serif;font-weight:700;font-size:clamp(24px,3.6vw,42px);line-height:1.6;color:var(--muted)}
-.pain.last{color:var(--text)}
-.answer{margin-top:34px;font-size:20px;color:var(--muted)}
-.answer b{color:var(--accent);font-family:'Vazirmatn',sans-serif}
+/* ورود تدریجی بخش اول، فقط یک بار */
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.js .hero-copy>*,.js .stage .pn{opacity:0}
+.go .hero-copy>*{animation:rise .7s ease both}
+.go .hero-copy>*:nth-child(2){animation-delay:.08s}
+.go .hero-copy>*:nth-child(3){animation-delay:.16s}
+.go .hero-copy>*:nth-child(4){animation-delay:.24s}
+.go .p-chat{animation:rise .7s .3s ease both}
+.go .p-cal{animation:rise .7s .5s ease both}
+.go .p-ok{animation:rise .7s .9s ease both}
 
-/* تب‌ها */
-.tabs{display:flex;gap:6px;margin-top:34px;border-bottom:1px solid var(--line)}
-.tab{background:none;border:0;color:var(--muted);padding:14px 22px;font-size:17px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
-.tab:hover{color:var(--text)}
-.tab[aria-selected="true"]{color:var(--text);border-bottom-color:var(--accent)}
-.panel{padding-top:18px}
-.panel:not([hidden]){animation:fade .3s ease both}
-.rows{list-style:none;padding:0}
-.rows li{display:grid;grid-template-columns:230px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--line)}
-.rows strong{font-family:'Vazirmatn',sans-serif;font-weight:700}
-.rows span{color:var(--muted)}
+/* نوار اعتماد */
+.strip{border-block:1px solid var(--line)}
+.strip-in{display:flex;flex-wrap:wrap;justify-content:space-between;padding-block:6px}
+.strip-in span{flex:1 1 auto;text-align:center;padding:14px 18px;font-size:15px;color:var(--mute-tint);border-inline-start:1px solid var(--line)}
+.strip-in span:first-child{border-inline-start:0}
 
-/* امتحان کردن */
-.try-box{border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(28px,5vw,56px);display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:center}
-.try-box p{color:var(--muted);margin-top:10px;max-width:30em}
-.try-links{display:flex;flex-wrap:wrap;gap:12px}
-.cred{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
-.cred div{display:flex;flex-direction:column;gap:2px;padding:10px 18px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--panel)}
-.cred span{color:var(--muted);font-size:13px;line-height:1.6}
-.cred code{font-family:ui-monospace,Consolas,monospace;font-size:17px;direction:ltr;text-align:right;color:var(--text)}
-/* مراحل */
-.steps{list-style:none;padding:0;margin-top:56px;counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
-.steps li{position:relative;border-top:2px solid var(--line);padding-top:30px}
-.steps li::before{counter-increment:s;content:counter(s,persian);position:absolute;top:-17px;inset-inline-start:0;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:'Vazirmatn',sans-serif;font-weight:700;font-size:15px}
-.steps h3{font-size:19px;margin-bottom:6px}
-.steps p{color:var(--muted);font-size:16px;line-height:1.85}
+/* مسئله */
+.split{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,96px);align-items:start}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 44px}
+.pi{border-top:1px solid var(--line);padding:28px 0 38px}
+.pi svg{width:28px;height:28px;stroke:var(--bronze);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-bottom:16px}
+.pi p{color:var(--mute-tint);font-size:16px;margin-top:6px}
 
-/* هزینه */
-.price-list{border-top:1px solid var(--line);margin-top:34px}
-.price-row{display:grid;grid-template-columns:1fr 1.5fr auto;gap:24px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--line)}
-.price-row h3{font-size:22px}
-.price-row p{color:var(--muted)}
-.price{font-family:'Vazirmatn',sans-serif;font-weight:700;font-size:20px}
-.offer{margin-top:28px;padding:18px 22px;border:1px dashed var(--accent);border-radius:var(--r-md)}
+/* راهکار */
+.sol{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:center}
+.vl{margin-top:34px}
+.vl li{display:grid;grid-template-columns:14px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--line)}
+.vl li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--sage);margin-top:12px}
+.vl b{font-family:var(--f-head);font-weight:500;display:block}
+.vl span{color:var(--mute-tint);font-size:16px}
+.paper{position:relative;background:var(--beige-soft);border-radius:28px;padding:clamp(18px,3.6vw,44px)}
+.paper::after{content:"";position:absolute;inset:10px;border:1px solid rgba(182,154,114,.6);border-radius:20px;pointer-events:none}
+.mock{position:relative;z-index:1;background:var(--white);border:1px solid rgba(37,35,33,.08);border-radius:18px;padding:20px;font-family:var(--f-head);font-size:14px;line-height:1.8}
+.mock-cap{margin-top:14px;font-size:13px;color:var(--mute-tint);text-align:center}
+.prof-head{display:flex;align-items:center;gap:12px}
+.prof-head .av{width:46px;height:46px;font-size:17px}
+.prof-head b{font-weight:500;font-size:16px;display:block}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.stats div{background:var(--ivory);border-radius:12px;padding:10px 12px}
+.stats b{display:block;font-size:20px;font-weight:700;line-height:1.4}
+.stats small{font-size:12px;color:var(--mute-tint)}
+.rows li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.rows small{color:var(--mute-tint);font-size:12px}
+.chip{font-size:12px;padding:1px 10px;border-radius:999px;background:var(--sage-soft);white-space:nowrap}
+.chip.warm{background:var(--beige-soft)}
+
+/* امکانات */
+.feat{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,80px);margin-top:56px;align-items:start}
+.ft{display:block;width:100%;text-align:start;background:none;border:0;border-top:1px solid var(--line);padding:22px 20px 22px 0;cursor:pointer;position:relative;color:var(--mute-tint)}
+.ft:last-child{border-bottom:1px solid var(--line)}
+.ft b{font-family:var(--f-head);font-weight:500;font-size:20px;display:block;color:var(--mute-tint);transition:color .2s}
+.ft span{display:block;font-size:16px;max-height:0;opacity:0;overflow:hidden;transition:max-height .35s ease,opacity .3s ease,margin .3s}
+.ft::before{content:"";position:absolute;inset-inline-start:-12px;top:-1px;bottom:-1px;width:2px;background:var(--bronze);opacity:0;transition:opacity .2s}
+.ft:hover b{color:var(--ink)}
+.ft[aria-selected="true"] b{color:var(--ink)}
+.ft[aria-selected="true"] span{max-height:140px;opacity:1;margin-top:6px}
+.ft[aria-selected="true"]::before{opacity:1}
+.fstage{position:relative}
+.fp:not([hidden]){animation:rise .45s ease both}
+.fp .mock{min-height:340px}
+.row-flex{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.composer{display:flex;gap:8px;margin-top:14px}
+.composer span{flex:1;border:1px solid var(--line);border-radius:999px;padding:6px 16px;color:var(--mute-tint);font-size:13px}
+.composer em{font-style:normal;background:var(--ink);color:var(--ivory);border-radius:999px;padding:6px 18px;font-size:13px}
+.stack{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.note-line{font-size:13px;color:#8a4b3d;margin-top:10px}
+.bell{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.bell:first-of-type{border-top:0}
+.bell .dot{width:8px;height:8px;border-radius:50%;background:var(--bronze);margin-top:10px;flex:none}
+.bars{display:flex;align-items:flex-end;gap:10px;height:140px;margin:14px 0 6px}
+.bars div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px;font-size:12px;color:var(--mute-tint)}
+.bars i{display:block;width:100%;background:var(--sage);border-radius:6px 6px 0 0;opacity:.85}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.duo div{background:var(--ivory);border-radius:12px;padding:10px 14px}
+.duo b{font-size:22px;font-weight:700;display:block;line-height:1.5}
+.duo small{font-size:12px;color:var(--mute-tint)}
+
+/* مناسب چه سالن‌هایی */
+.arches{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:56px}
+.arc{border-radius:999px 999px 24px 24px;padding:72px 22px 32px;text-align:center;background:var(--beige-soft)}
+.arc:nth-child(even){background:var(--sage-soft)}
+.arc:nth-child(3){background:var(--white);border:1px solid var(--line)}
+.arc svg{width:26px;height:26px;stroke:var(--ink);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin:0 auto 18px}
+.arc h3{font-size:18px}
+.arc p{font-size:15px;color:var(--mute-tint);margin-top:8px;line-height:1.85}
+
+/* قبل و بعد */
+.seg{display:inline-flex;margin-top:34px;border:1px solid var(--line);border-radius:999px;padding:4px;background:var(--ivory)}
+.seg button{border:0;background:none;padding:10px 26px;border-radius:999px;cursor:pointer;font-family:var(--f-head);font-weight:500;font-size:16px;color:var(--mute-tint);transition:background .2s,color .2s}
+.seg button[aria-selected="true"]{background:var(--ink);color:var(--ivory)}
+.story{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(32px,6vw,96px);margin-top:48px;align-items:start}
+.sp:not([hidden]){display:contents}
+.tl{counter-reset:t;position:relative}
+.tl li{counter-increment:t;position:relative;padding:0 64px 36px 0}
+.tl li::before{content:counter(t,persian);position:absolute;right:0;top:0;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-head);font-weight:500;background:var(--beige);color:var(--ink)}
+.tl li::after{content:"";position:absolute;right:19px;top:46px;bottom:6px;border-inline-start:1px dashed rgba(37,35,33,.3)}
+.tl li:last-child::after{display:none}
+.tl.good li::before{background:var(--sage);color:var(--ink)}
+.tl.good li::after{border-inline-start-style:solid;border-color:var(--sage)}
+.tl.bad li{color:var(--mute-tint)}
+.tl p{font-size:18px;line-height:1.9}
+.outs li{padding:18px 0;border-top:1px solid var(--line);font-family:var(--f-head);font-weight:500;font-size:18px}
+.outs li:last-child{border-bottom:1px solid var(--line)}
+
+/* مقایسه */
+.cmp{margin-top:48px}
+.cmp-row{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:24px;padding:22px 0;border-top:1px solid var(--line);align-items:baseline}
+.cmp-row:last-child{border-bottom:1px solid var(--line)}
+.cmp-row.h{padding:12px 0;font-size:14px;color:var(--mute-tint)}
+.cmp-row b{font-family:var(--f-head);font-weight:500}
+.cmp-row .gen{color:var(--mute-tint);font-size:16px}
+.cmp-row .us{font-size:17px}
+
+/* نمایشی */
+.demo{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,6vw,96px);align-items:center}
+.tryl{margin-top:30px}
+.tryl li{padding:14px 0;border-top:1px solid var(--line);color:var(--mute-tint)}
+.demo-box{background:var(--beige-soft);border-radius:999px 999px 28px 28px;padding:84px clamp(24px,4vw,48px) 44px;text-align:center}
+.demo-box p{font-size:15px;color:var(--mute-tint);margin:16px auto 0;max-width:20em}
+.demo-box .btn{width:100%;margin-top:12px}
+.demo-box .btn:first-of-type{margin-top:0}
 
 /* سوال‌ها */
-.faq{margin-top:30px;max-width:820px}
-details{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;list-style:none;padding:20px 0;font-weight:700;font-size:19px;display:flex;justify-content:space-between;gap:16px}
+.faq{max-width:860px;margin-top:40px}
+details{border-top:1px solid var(--line)}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:22px 0;font-family:var(--f-head);font-weight:500;font-size:19px;display:flex;justify-content:space-between;gap:16px;align-items:center}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"+";color:var(--accent);font-size:26px;line-height:1;transition:transform .2s}
+summary::after{content:"+";color:var(--bronze);font-size:26px;line-height:1;transition:transform .2s}
 details[open] summary::after{transform:rotate(45deg)}
-details p{color:var(--muted);padding-bottom:22px;max-width:40em}
+details p{color:var(--mute-tint);padding-bottom:24px;max-width:42em;font-size:17px}
 
-/* پیام پایانی */
-.bubbles{display:flex;flex-direction:column;gap:14px;margin-top:36px;max-width:540px}
-.bubble{display:block;text-decoration:none;padding:16px 22px;border-radius:20px;font-size:18px;transition:transform .2s,background .2s}
-.bubble:hover{transform:translateY(-2px)}
-.bubble.tg{background:var(--accent);color:var(--accent-ink);border-end-start-radius:5px;font-family:'Vazirmatn',sans-serif;font-weight:500}
-.bubble.mail{background:var(--panel-2);border:1px solid var(--line);border-end-start-radius:5px}
-.hint{color:var(--muted);font-size:15px;margin-top:6px}
+/* دعوت نهایی */
+.dark{background:var(--ink);color:var(--ivory)}
+.final{text-align:center}
+.final svg{margin:0 auto 28px}
+.final h2{max-width:20em;margin-inline:auto}
+.final p.sub{color:rgba(248,246,242,.75);margin-top:20px;font-size:19px}
+.final .cta-row{justify-content:center}
+.reach{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 40px;margin-top:54px;padding-top:34px;border-top:1px solid rgba(182,154,114,.5);font-size:16px;color:rgba(248,246,242,.8)}
+.reach a{text-decoration:none}
+.reach a:hover{color:#fff}
 
-footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:15px}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer{padding:64px 0 40px;font-size:15px;color:var(--mute-tint)}
+.foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px}
+.foot p{max-width:24em;margin-top:12px}
+.foot h4{font-family:var(--f-head);font-weight:500;color:var(--ink);font-size:16px;margin-bottom:10px}
+.foot li a{display:inline-block;padding:3px 0;text-decoration:none}
+.foot li a:hover{color:var(--ink)}
+.copy{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:14px}
 
-@media (max-width:900px){
-  .nav a:not(.btn){display:none}
-  .hero-grid{grid-template-columns:1fr}
-  .rows li{grid-template-columns:1fr;gap:4px}
-  .steps{grid-template-columns:1fr 1fr;row-gap:44px}
-  .price-row{grid-template-columns:1fr;gap:8px}
+/* دکمه شناور موبایل */
+.float-cta{display:none;position:fixed;inset-inline:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:60;transform:translateY(160%);transition:transform .35s ease;box-shadow:0 14px 30px -16px rgba(37,35,33,.6)}
+.float-cta.show{transform:none}
+
+/* ظاهر شدن تدریجی بخش‌ها (کم و کوتاه) */
+.rv{transition:opacity .6s ease,transform .6s ease}
+.js .rv:not(.in){opacity:0;transform:translateY(16px)}
+
+/* ریسپانسیو */
+@media (max-width:1180px){
+  .menu{display:none;position:absolute;inset-inline:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--ivory);border-bottom:1px solid var(--line);padding:6px 4vw 20px}
+  .menu.open{display:flex}
+  .menu a{padding:15px 0;border-bottom:1px solid var(--line)}
+  .menu .m-login{display:block}
+  .login{display:none}
+  .burger{display:inline-flex}
+  .arches{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:14px;margin-inline:-4vw;padding-inline:4vw;-webkit-overflow-scrolling:touch}
+  .arc{flex:0 0 min(300px,72%);scroll-snap-align:center}
 }
-@media (max-width:520px){
-  .steps{grid-template-columns:1fr}
-  .tab{padding:12px 14px;font-size:16px}
+@media (max-width:980px){
+  .hero-grid,.split,.sol,.feat,.story,.demo{grid-template-columns:1fr}
+  .stage{max-width:520px}
+  .pgrid{grid-template-columns:1fr 1fr;gap:0 28px}
+  .foot{grid-template-columns:1fr 1fr}
+  .foot>div:first-child{grid-column:1/-1}
+  .cmp-row{grid-template-columns:1fr;gap:4px}
+  .cmp-row.h{display:none}
+  .cmp-row .gen::before{content:"در ابزار عمومی: ";font-size:13px}
+  .cmp-row .us::before{content:"در آراوین: ";font-size:13px;color:var(--mute-tint)}
+}
+@media (max-width:820px){
+  .float-cta{display:flex}
+  footer{padding-bottom:110px}
+}
+@media (max-width:620px){
+  .pgrid{grid-template-columns:1fr}
+  .strip-in span{flex:1 1 50%;border-inline-start:0;border-top:1px solid var(--line)}
+  .strip-in span:nth-child(-n+2){border-top:0}
+  .btn-lg{width:100%}
+  .nav-act .btn{display:none}
+  .foot{grid-template-columns:1fr}
+  .tl li{padding-right:56px}
+  .seg button{padding:10px 18px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
+  .js .hero-copy>*,.js .stage .pn{opacity:1}
+  .js .rv:not(.in){opacity:1;transform:none}
 }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header class="top">
-    <a class="brand" href="#" data-brand>آراوین</a>
-    <nav class="nav" aria-label="بخش‌های صفحه">
-      <a href="#roles">امکانات</a>
-      <a href="#pricing">هزینه</a>
-      <a href="#faq">سوال‌ها</a>
-      <a class="btn btn-primary" href="tel:+989154182182" data-tel>تماس <bdi dir="ltr">0915 418 2182</bdi></a>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#top" aria-label="آراوین، صفحه اصلی">
+      <svg width="22" height="27" viewBox="0 0 22 27" aria-hidden="true"><path d="M1 26V11a10 10 0 0 1 20 0v15z" fill="none" stroke="#B69A72" stroke-width="1.5"/><path d="M5 26V12a6 6 0 0 1 12 0v14" fill="none" stroke="#B69A72" stroke-width="1" opacity=".6"/></svg>
+      <span>آراوین</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="بخش‌های صفحه">
+      <a href="#features">امکانات</a>
+      <a href="#why">چرا آراوین؟</a>
+      <a href="#fit">مناسب چه سالن‌هایی؟</a>
+      <a href="#experience">تجربه کار</a>
+      <a href="#faq">سوالات متداول</a>
+      <a class="m-login" href="/login.html">ورود به پنل</a>
     </nav>
-  </header>
-</div>
+    <div class="nav-act">
+      <a class="login" href="/login.html">ورود به پنل</a>
+      <a class="btn btn-ink" href="https://demo.andev.ir/login.html" target="_blank" rel="noopener">ورود به پنل نمایشی</a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="باز کردن منو">
+        <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><path d="M1 1h18M1 7h18M1 13h18" stroke="#252321" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
 
 <main>
 
-<section class="hero">
+<section class="hero" id="top">
   <div class="wrap hero-grid">
-    <div>
-      <h1>پیام مشتری و نوبت سالن، در یک صفحه</h1>
-      <p class="lead">مشتری در تلگرام یا بله پیام می‌دهد. شما همان‌جا جواب می‌دهید، نوبتش را با تقویم شمسی ثبت می‌کنید و تایید نوبت خودکار برایش می‌رود.</p>
+    <div class="hero-copy">
+      <h1><span>مدیریت حرفه‌ای،</span><span>در شأن سالن‌های خاص</span></h1>
+      <p class="lead">آراوین پیام‌های تلگرام و بله، نوبت‌ها و پرونده هر مشتری را در یک پنل منظم کنار هم می‌گذارد و تایید نوبت را خودکار برایش می‌فرستد.</p>
       <div class="cta-row">
-        <a class="btn btn-ghost" href="#roles">دیدن امکانات</a>
+        <a class="btn btn-ink btn-lg" id="heroCta" href="https://demo.andev.ir/login.html" target="_blank" rel="noopener">ورود به پنل نمایشی</a>
+<a class="btn btn-line btn-lg" href="https://demo.andev.ir/salon.html" target="_blank" rel="noopener">دیدن سایت سالن</a>
       </div>
+      <p class="assure">طراحی‌شده برای سالن‌هایی که به تجربه مشتری اهمیت می‌دهند</p>
     </div>
 
-    <div class="chat" role="group" aria-label="نمونه گفتگو با مشتری">
-      <div class="chat-head"><span>گفتگو با مشتری</span><small>تلگرام</small></div>
-      <div class="chat-body">
-        <div class="msg in" data-msg>سلام، برای کراتین فردا وقت دارید؟</div>
-        <div class="msg out" data-msg data-wait="1100">سلام، خوش آمدید. ساعت ۱۶:۳۰ خالی است، خوب است؟</div>
-        <div class="msg in" data-msg data-wait="900">بله، لطفاً</div>
-        <div class="confirm" data-msg data-wait="1300">
-          <div>وقت شما برای <span id="confirmDate">فردا</span> ساعت ۱۶:۳۰ برای «کراتین» ثبت شد. منتظر حضورتون هستیم.</div>
-          <div class="cap">
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#FF7A2F"/><path d="M4.5 8.3l2.3 2.3 4.7-4.9" fill="none" stroke="#1B1006" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            پیام تایید خودکار از پنل
+    <div class="stage" role="img" aria-label="نمایی از پنل آراوین: گفتگوی مشتری، تقویم شمسی و پیام تایید نوبت">
+      <div class="arch"></div>
+      <div class="pn p-cal" aria-hidden="true">
+        <div class="cal-top"><b>تقویم شمسی</b><small>ساعت‌های خالی</small></div>
+        <div class="days">
+          <i><em>ش</em>۲۵</i><i><em>ی</em>۲۶</i><i><em>د</em>۲۷</i><i class="sel"><em>س</em>۲۸</i><i><em>چ</em>۲۹</i><i><em>پ</em>۳۰</i><i class="off"><em>ج</em>۱</i>
+        </div>
+        <div class="slots"><span class="x">۱۶:۰۰</span><span class="on">۱۶:۳۰</span><span>۱۷:۰۰</span></div>
+      </div>
+      <div class="pn p-chat" aria-hidden="true">
+        <div class="pn-head"><span class="av">م</span><div><b>مهمان نمونه</b><small>پیام تازه</small></div><span class="tag">تلگرام</span></div>
+        <div class="bub in">سلام، برای کراتین این هفته وقت دارید؟</div>
+        <div class="bub out">سه‌شنبه ساعت ۱۶:۳۰ خالی است.</div>
+        <div class="bub in">عالیه، لطفاً ثبت کنید.</div>
+      </div>
+      <div class="pn p-ok" aria-hidden="true">
+        <span class="ok-ic"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3.5 8.3l3 3 6-6.2" fill="none" stroke="#252321" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><b>نوبت ثبت شد</b><small>سه‌شنبه ساعت ۱۶:۳۰، کراتین</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="strip" aria-label="ویژگی‌هایی که همین حالا می‌توانید ببینید">
+  <div class="wrap strip-in">
+    <span>پنل نمایشی زنده</span>
+    <span>تقویم شمسی</span>
+    <span>تایید خودکار نوبت</span>
+    <span>دسترسی جدا برای مدیر و کارمند</span>
+    <span>اتصال تلگرام و بله</span>
+  </div>
+</section>
+
+<section class="sec" id="problem">
+  <div class="wrap split">
+    <div class="rv">
+      <h2>وقتی رشد سالن، با ابزارهای قدیمی سخت می‌شود</h2>
+      <p class="intro">مشکل معمولاً کم‌کاری تیم نیست. اطلاعات جای درستی ندارد.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pi rv">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <h3>پیگیری فراموش می‌شود</h3>
+        <p>مشتری پیام داده و جواب دیر رسیده. فرصت رزرو همان‌جا کم‌رنگ می‌شود.</p>
+      </div>
+      <div class="pi rv">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/><path d="M15 6h5M4 16h5"/></svg>
+        <h3>اطلاعات پراکنده است</h3>
+        <p>شماره در گوشی، نوبت در دفتر، سابقه در حافظه. کسی تصویر کامل مشتری را ندارد.</p>
+      </div>
+      <div class="pi rv">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M10 13.5l4 4M14 13.5l-4 4"/></svg>
+        <h3>نوبت‌ها با هم تداخل می‌کنند</h3>
+        <p>یک ساعت دو بار قول داده می‌شود و اعتماد مشتری آسیب می‌بیند.</p>
+      </div>
+      <div class="pi rv">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10M7 20h10M8 4v3l4 5-4 5v3M16 4v3l-4 5 4 5v3"/></svg>
+        <h3>ارتباط با مشتری وقت می‌خورد</h3>
+        <p>پذیرش بیشتر وقتش را صرف جابه‌جایی بین پیام‌رسان‌ها و دفتر می‌کند.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec band" id="why">
+  <div class="wrap sol">
+    <div class="rv">
+      <h2>همه‌چیز برای مدیریت بهتر ارتباط با مشتری</h2>
+      <ul class="vl">
+        <li><div><b>مشتری تازه، منظم ثبت می‌شود</b><span>هر پیام جدید به یک مشتری با وضعیت مشخص تبدیل می‌شود.</span></div></li>
+        <li><div><b>پیگیری با یادآوری</b><span>نوبت‌های نزدیک با اعلان یادآوری می‌شوند.</span></div></li>
+        <li><div><b>شناخت بهتر مشتری</b><span>تاریخچه نوبت‌ها، یادداشت و برچسب مشتری ویژه یا وفادار در یک پرونده.</span></div></li>
+        <li><div><b>از پیام تا رزرو، در یک مسیر</b><span>از همان گفتگو نوبت ثبت می‌شود و تایید برای مشتری می‌رود.</span></div></li>
+        <li><div><b>تیمی هماهنگ</b><span>مدیر و کارمند هر کدام دسترسی مخصوص خودشان را دارند.</span></div></li>
+        <li><div><b>تجربه‌ای حرفه‌ای برای مشتری</b><span>پیام تایید با تاریخ شمسی، ساعت و نام خدمت.</span></div></li>
+      </ul>
+    </div>
+    <div class="rv">
+      <div class="paper">
+        <div class="mock" role="img" aria-label="نمونه پرونده مشتری در پنل آراوین">
+          <div class="prof-head"><span class="av">م</span><div><b>مهمان نمونه</b><span class="chip warm">مشتری ویژه</span></div></div>
+          <div class="stats">
+            <div><b>۸</b><small>مراجعه</small></div>
+            <div><b>۱۱</b><small>نوبت</small></div>
+            <div><b>۴۶</b><small>پیام</small></div>
           </div>
+          <ul class="rows">
+            <li><div>کراتین<small>۲۸ مهر، ۱۶:۳۰</small></div><span class="chip warm">تایید شده</span></li>
+            <li><div>رنگ و مش<small>۲ مهر، ۱۱:۰۰</small></div><span class="chip">انجام شد</span></li>
+            <li><div>مراقبت پوست<small>۱۸ شهریور، ۱۸:۰۰</small></div><span class="chip">انجام شد</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="mock-cap">نمونه از پنل نمایشی، با اطلاعات فرضی</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="features">
+  <div class="wrap">
+    <div class="rv">
+      <h2>پنل چطور کار می‌کند</h2>
+      <p class="intro">پنج کاری که تیم سالن هر روز انجام می‌دهد، بدون جابه‌جایی بین ابزارها.</p>
+    </div>
+    <div class="feat">
+      <div class="flist" role="tablist" aria-orientation="vertical" aria-label="امکانات اصلی">
+        <button class="ft" role="tab" id="ft-0" aria-controls="fp-0" aria-selected="true"><b>گفتگو با مشتری در یک صفحه</b><span>پیام‌های تلگرام و بله کنار هم می‌آیند و از همان‌جا جواب می‌دهید.</span></button>
+        <button class="ft" role="tab" id="ft-1" aria-controls="fp-1" aria-selected="false" tabindex="-1"><b>نوبت‌دهی با تقویم شمسی</b><span>فقط ساعت‌های خالی نشان داده می‌شود. تعطیلی و سقف نوبت روزانه را خودتان تعیین می‌کنید.</span></button>
+        <button class="ft" role="tab" id="ft-2" aria-controls="fp-2" aria-selected="false" tabindex="-1"><b>پرونده کامل مشتری</b><span>تاریخچه نوبت‌ها، یادداشت و برچسب مشتری ویژه یا وفادار.</span></button>
+        <button class="ft" role="tab" id="ft-3" aria-controls="fp-3" aria-selected="false" tabindex="-1"><b>یادآوری و تایید خودکار</b><span>نوبت نزدیک یادآوری می‌شود و پیام تایید به مشتری می‌رسد.</span></button>
+        <button class="ft" role="tab" id="ft-4" aria-controls="fp-4" aria-selected="false" tabindex="-1"><b>گزارش قابل فهم برای مدیر</b><span>تعداد مشتری‌های تازه، نرخ تبدیل به نوبت و پرمشتری‌ترین کانال را در یک نگاه ببینید.</span></button>
+      </div>
+
+      <div class="fstage">
+        <div class="fp" role="tabpanel" id="fp-0" aria-labelledby="ft-0">
+          <div class="mock">
+            <div class="pn-head"><span class="av">م</span><div><b>مهمان نمونه</b></div><span class="row-flex" style="margin-inline-start:auto"><span class="tag">تلگرام</span><span class="tag">بله</span></span></div>
+            <div class="stack">
+              <div class="bub in">سلام، برای کراتین این هفته وقت دارید؟</div>
+              <div class="bub out">سلام، خوش آمدید. سه‌شنبه ساعت ۱۶:۳۰ خالی است.</div>
+              <div class="bub in">عالیه، لطفاً ثبت کنید.</div>
+            </div>
+            <div class="composer"><span>پیام خود را بنویسید</span><em>ارسال</em></div>
+          </div>
+          <p class="mock-cap">نمونه از پنل نمایشی</p>
+        </div>
+        <div class="fp" role="tabpanel" id="fp-1" aria-labelledby="ft-1" hidden>
+          <div class="mock">
+            <div class="cal-top"><b>ثبت نوبت، کراتین</b><small>تقویم شمسی</small></div>
+            <div class="days">
+              <i><em>ش</em>۲۵</i><i><em>ی</em>۲۶</i><i><em>د</em>۲۷</i><i class="sel"><em>س</em>۲۸</i><i><em>چ</em>۲۹</i><i><em>پ</em>۳۰</i><i class="off"><em>ج</em>۱</i>
+            </div>
+            <div class="slots"><span class="x">۱۵:۳۰</span><span class="x">۱۶:۰۰</span><span class="on">۱۶:۳۰</span><span>۱۷:۰۰</span><span>۱۷:۳۰</span></div>
+            <p class="note-line">ساعت ۱۶:۰۰ قبلاً رزرو شده است.</p>
+            <div class="composer"><span>جمعه تعطیل است</span><em>ثبت نوبت</em></div>
+          </div>
+          <p class="mock-cap">نمونه از پنل نمایشی</p>
+        </div>
+        <div class="fp" role="tabpanel" id="fp-2" aria-labelledby="ft-2" hidden>
+          <div class="mock">
+            <div class="prof-head"><span class="av">م</span><div><b>مهمان نمونه</b><span class="chip warm">مشتری ویژه</span></div></div>
+            <div class="stats"><div><b>۸</b><small>مراجعه</small></div><div><b>۱۱</b><small>نوبت</small></div><div><b>۴۶</b><small>پیام</small></div></div>
+            <ul class="rows">
+              <li><div>یادداشت<small>به رنگ‌های گرم حساس است.</small></div></li>
+              <li><div>کراتین<small>۲۸ مهر، ۱۶:۳۰</small></div><span class="chip warm">تایید شده</span></li>
+              <li><div>رنگ و مش<small>۲ مهر، ۱۱:۰۰</small></div><span class="chip">انجام شد</span></li>
+            </ul>
+          </div>
+          <p class="mock-cap">نمونه از پنل نمایشی، با اطلاعات فرضی</p>
+        </div>
+        <div class="fp" role="tabpanel" id="fp-3" aria-labelledby="ft-3" hidden>
+          <div class="mock">
+            <div class="bell"><span class="dot"></span><div><b>نوبت نزدیک</b><small style="display:block;color:var(--mute-tint)">مهمان نمونه، کراتین، امروز ساعت ۱۶:۳۰</small></div></div>
+            <div class="bell"><span class="dot"></span><div><b>نوبت نزدیک</b><small style="display:block;color:var(--mute-tint)">مهمان دوم، رنگ و مش، فردا ساعت ۱۱:۰۰</small></div></div>
+            <div class="stack">
+              <div class="bub out" style="max-width:100%">وقت شما برای سه‌شنبه ساعت ۱۶:۳۰ برای «کراتین» ثبت شد. منتظر حضورتون هستیم.</div>
+              <small style="color:var(--mute-tint);font-size:12px">پیام تایید خودکار به همان پیام‌رسان مشتری می‌رود.</small>
+            </div>
+          </div>
+          <p class="mock-cap">نمونه از پنل نمایشی</p>
+        </div>
+        <div class="fp" role="tabpanel" id="fp-4" aria-labelledby="ft-4" hidden>
+          <div class="mock">
+            <b style="font-weight:500">مشتری‌های تازه در هفته</b>
+            <div class="bars" aria-hidden="true">
+              <div><i style="height:35%"></i>ش</div><div><i style="height:55%"></i>ی</div><div><i style="height:25%"></i>د</div><div><i style="height:80%"></i>س</div><div><i style="height:60%"></i>چ</div><div><i style="height:45%"></i>پ</div><div><i style="height:15%"></i>ج</div>
+            </div>
+            <div class="duo"><div><b>٪۴۲</b><small>تبدیل به نوبت</small></div><div><b>تلگرام</b><small>پرمشتری‌ترین کانال</small></div></div>
+          </div>
+          <p class="mock-cap">اعداد نمایشی هستند، نه آمار واقعی</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="block statement" aria-label="مشکل امروز سالن‌ها">
+<section class="sec band" id="fit">
   <div class="wrap">
-    <p class="pain">مشتری پیام می‌دهد و جواب دیر می‌رسد.</p>
-    <p class="pain">نوبت روی کاغذ یا در حافظه می‌ماند.</p>
-    <p class="pain">دو نفر یک ساعت را می‌گیرند.</p>
-    <p class="pain last">مشتری بعدی سراغ سالن دیگری می‌رود.</p>
-    <p class="answer"><b data-brand>آراوین</b> همین چهار مشکل را می‌بندد.</p>
+    <div class="rv">
+      <h2>مناسب چه سالن‌هایی است؟</h2>
+      <p class="intro">برای سالن‌هایی که هر مشتری را یک رابطه بلندمدت می‌دانند.</p>
+    </div>
+    <div class="arches">
+      <article class="arc">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 7-7 11-7-11z"/></svg>
+        <h3>سالن‌های لوکس و پریمیوم</h3>
+        <p>تجربه مشتری از اولین پیام تا روز نوبت، منظم و هماهنگ با سطح سالن.</p>
+      </article>
+      <article class="arc">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8c3-4 5 4 8 0s5 4 8 0M4 15c3-4 5 4 8 0s5 4 8 0"/></svg>
+        <h3>سالن‌های تخصصی مو</h3>
+        <p>زمان‌بندی خدمت‌های طولانی مثل رنگ و کراتین، بدون تداخل ساعت.</p>
+      </article>
+      <article class="arc">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></svg>
+        <h3>خدمات پوست و زیبایی</h3>
+        <p>پرونده هر مهمان، سابقه نوبت‌ها و یادداشت هر جلسه در یک جا.</p>
+      </article>
+      <article class="arc">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6M15 15c3 0 6 1 6 5"/></svg>
+        <h3>سالن‌هایی با تیم پذیرش</h3>
+        <p>کارمند جواب می‌دهد و نوبت ثبت می‌کند. تنظیمات و حذف اطلاعات دست مدیر می‌ماند.</p>
+      </article>
+      <article class="arc">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>
+        <h3>مشتری‌های پیام‌رسان‌محور</h3>
+        <p>تلگرام و بله، همان‌جا که مشتری راحت‌تر پیام می‌دهد.</p>
+      </article>
+    </div>
   </div>
 </section>
 
-<section class="block" id="roles">
+<section class="sec" id="experience">
   <div class="wrap">
-    <h2>هر کس همان چیزی را می‌بیند که لازم دارد</h2>
-
-    <div class="tabs" role="tablist" aria-label="نقش‌ها">
-      <button class="tab" role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true">مدیر سالن</button>
-      <button class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1">کارمند</button>
-      <button class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">مشتری</button>
+    <div class="rv">
+      <h2>یک پیام ساعت ۲۰:۱۵، قبل و بعد از آراوین</h2>
+      <div class="seg" role="tablist" aria-label="مقایسه قبل و بعد">
+        <button type="button" role="tab" id="sg-0" aria-controls="sp-0" aria-selected="true">بدون آراوین</button>
+        <button type="button" role="tab" id="sg-1" aria-controls="sp-1" aria-selected="false" tabindex="-1">با آراوین</button>
+      </div>
     </div>
+    <div class="story">
+      <div class="sp" role="tabpanel" id="sp-0" aria-labelledby="sg-0">
+        <ol class="tl bad">
+          <li><p>ساعت ۲۰:۱۵ مشتری در پیام‌رسان می‌نویسد: فردا وقت دارید؟</p></li>
+          <li><p>پیام زیر گفتگوهای دیگر گم می‌شود و تا صبح جواب نمی‌گیرد.</p></li>
+          <li><p>صبح که جواب می‌رسد، مشتری جای دیگری وقت گرفته است.</p></li>
+        </ol>
+        <ul class="outs">
+          <li>اطلاعات پراکنده</li>
+          <li>پیگیری‌های فراموش‌شده</li>
+          <li>وابستگی به حافظه افراد</li>
+        </ul>
+      </div>
+      <div class="sp" role="tabpanel" id="sp-1" aria-labelledby="sg-1" hidden>
+        <ol class="tl good">
+          <li><p>ساعت ۲۰:۱۵ پیام در پنل می‌نشیند و مشتری تازه ثبت می‌شود.</p></li>
+          <li><p>کارمند جواب می‌دهد و از تقویم، ساعت خالی را انتخاب می‌کند.</p></li>
+          <li><p>تایید با تاریخ و ساعت برای مشتری می‌رود و نوبت یادآوری می‌شود.</p></li>
+        </ol>
+        <ul class="outs">
+          <li>دید واضح نسبت به مشتری‌ها</li>
+          <li>پیگیری منظم</li>
+          <li>تجربه‌ای حرفه‌ای‌تر برای تیم و مشتری</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="panel" role="tabpanel" id="panel-0" aria-labelledby="tab-0">
-      <ul class="rows">
-        <li><strong>خدمات و اطلاعات سالن</strong><span>نام خدمات، ساعت کاری، آدرس و لینک پیام‌رسان‌ها را از یک صفحه عوض می‌کنید و سایت معرفی سالن خودکار به‌روز می‌شود.</span></li>
-        <li><strong>کارکنان</strong><span>برای هر کارمند نام کاربری و رمز می‌سازید. کارمند فقط به گفتگو با مشتری‌ها و ثبت نوبت دسترسی دارد.</span></li>
-        <li><strong>قوانین رزرو</strong><span>روز تعطیل هفتگی، تعطیلی موردی و سقف نوبت روزانه را مشخص می‌کنید تا نوبت خارج از برنامه ثبت نشود.</span></li>
-        <li><strong>پاسخ خودکار</strong><span>سوال‌های پرتکرار و جواب‌هایشان را خودتان می‌نویسید و برای هر مشتری روشن یا خاموش می‌کنید.</span></li>
-        <li><strong>آمار هفته</strong><span>تعداد مشتری‌های جدید، نرخ تبدیل به نوبت و پرمشتری‌ترین کانال را می‌بینید.</span></li>
+<section class="sec band" id="compare">
+  <div class="wrap">
+    <div class="rv">
+      <h2>تفاوت در تمرکز است</h2>
+      <p class="intro">ابزارهای عمومی برای همه کسب‌وکارها ساخته شده‌اند. آراوین فقط برای سالن.</p>
+    </div>
+    <div class="cmp rv">
+      <div class="cmp-row h"><span>محور</span><span>ابزار عمومی</span><span>آراوین</span></div>
+      <div class="cmp-row"><b>برای چه کسی ساخته شده</b><span class="gen">هر کسب‌وکاری</span><span class="us">سالن زیبایی، با زبان خدمات و نوبت</span></div>
+      <div class="cmp-row"><b>سادگی برای تیم</b><span class="gen">تنظیمات و بخش‌های زیاد</span><span class="us">فقط آنچه پذیرش هر روز لازم دارد</span></div>
+      <div class="cmp-row"><b>تمرکز</b><span class="gen">گزارش فروش و فرایندهای سازمانی</span><span class="us">پیگیری مشتری تا رسیدن به نوبت</span></div>
+      <div class="cmp-row"><b>سایت معرفی سالن</b><span class="gen">جدا و دستی</span><span class="us">همراه پنل ساخته می‌شود و از پنل به‌روز می‌شود</span></div>
+      <div class="cmp-row"><b>گزارش</b><span class="gen">جدول‌های پیچیده</span><span class="us">گزارش ساده برای تصمیم هفتگی</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="demo">
+  <div class="wrap demo">
+    <div class="rv">
+      <h2>به جای وعده، خودتان امتحان کنید</h2>
+      <p class="intro">پنل نمایشی با اطلاعات فرضی باز است. گفتگو، تقویم و پرونده مشتری را همان‌طور ببینید که تیم سالن می‌بیند.</p>
+      <ul class="tryl">
+        <li>یک نوبت ثبت کنید و ببینید ساعت اشغال‌شده چطور بسته می‌شود.</li>
+        <li>تقویم شمسی و ساعت‌های خالی را مرور کنید.</li>
+        <li>پرونده مشتری و برچسب‌ها را باز کنید.</li>
       </ul>
     </div>
-
-    <div class="panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" hidden>
-      <ul class="rows">
-        <li><strong>همه پیام‌ها در یک صفحه</strong><span>پیام‌های تلگرام و بله را کنار هم می‌بینید و همان‌جا جواب می‌دهید.</span></li>
-        <li><strong>ثبت نوبت</strong><span>روز را از تقویم شمسی انتخاب می‌کنید. فقط ساعت‌های خالی نشان داده می‌شود و نوبت تکراری ثبت نمی‌شود.</span></li>
-        <li><strong>پرونده مشتری</strong><span>تاریخچه نوبت‌ها، یادداشت و برچسب مشتری ویژه یا وفادار را یک‌جا می‌بینید.</span></li>
-        <li><strong>یادآوری نوبت</strong><span>نوبت‌های نزدیک با زنگوله و اعلان مرورگر یادآوری می‌شود.</span></li>
-        <li><strong>محدوده کار</strong><span>حذف مشتری و تغییر تنظیمات فقط در اختیار مدیر است.</span></li>
-      </ul>
-    </div>
-
-    <div class="panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>
-      <ul class="rows">
-        <li><strong>همان پیام‌رسان همیشگی</strong><span>در تلگرام یا بله پیام می‌دهد. برنامه جدید نصب نمی‌کند و حساب نمی‌سازد.</span></li>
-        <li><strong>تایید نوبت</strong><span>بعد از ثبت نوبت، تاریخ، ساعت و نام خدمت را در همان گفتگو دریافت می‌کند.</span></li>
-        <li><strong>جواب سوال‌های ساده</strong><span>اگر پاسخ خودکار روشن باشد، جواب سوال‌هایی مثل ساعت کاری و آدرس را همان لحظه می‌گیرد.</span></li>
-      </ul>
+    <div class="demo-box rv">
+      <a class="btn btn-ink btn-lg" href="https://demo.andev.ir/login.html">ورود به پنل نمایشی</a>
+      <a class="btn btn-line btn-lg" href="https://demo.andev.ir/salon.html">دیدن سایت معرفی سالن</a>
+      <p>نام کاربری و رمز نمایشی را در تماس یا تلگرام برایتان می‌فرستم.</p>
     </div>
   </div>
 </section>
 
-<section class="block" style="padding-top:0">
+<section class="sec band" id="faq">
   <div class="wrap">
-        <div class="try-box">
-      <div>
-        <h2>خودتان امتحان کنید</h2>
-        <p>سایت معرفی سالن و پنل مدیریت را با اطلاعات نمونه ببینید. با اطلاعات زیر وارد پنل شوید. این نسخه فقط برای مشاهده است و ثبت یا ارسال در آن غیرفعال است.</p>
-        <div class="cred">
-          <div><span>نام کاربری</span><code>demo</code></div>
-          <div><span>رمز عبور</span><code>demo1234</code></div>
-        </div>
-      </div>
-      <div class="try-links" id="demoLinks">
-        <a class="btn btn-primary" href="https://t.me/adehnavi" data-tg id="demoAsk">درخواست ورود نمایشی</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="steps" style="padding-top:0">
-  <div class="wrap">
-    <h2>شروع کار چطور است</h2>
-    <ol class="steps">
-      <li><h3>گفتگو</h3><p>نیاز سالن، خدمات و ساعت کاری را با هم مرور می‌کنیم.</p></li>
-      <li><h3>راه‌اندازی</h3><p>نسخه مخصوص سالن شما را نصب و ربات‌های تلگرام و بله را وصل می‌کنیم.</p></li>
-      <li><h3>وارد کردن اطلاعات</h3><p>خدمات، تعطیلی‌ها و سوال‌های پرتکرار مشتری‌ها را در پنل وارد می‌کنیم.</p></li>
-      <li><h3>آموزش و شروع</h3><p>کارکنان با پنل آشنا می‌شوند و کار شروع می‌شود.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="block" id="pricing" style="padding-top:0">
-  <div class="wrap">
-    <h2>هزینه</h2>
-    <div class="price-list">
-      <div class="price-row">
-        <h3>راه‌اندازی یک‌باره</h3>
-        <p>نصب نسخه مخصوص سالن، اتصال ربات‌ها، وارد کردن خدمات و سوال‌های پرتکرار، ساخت حساب کارکنان و آموزش.</p>
-        <div class="price" data-price="setup">در گفتگو اعلام می‌شود</div>
-      </div>
-      <div class="price-row">
-        <h3>پشتیبانی ماهانه</h3>
-        <p>نگهداری، رفع مشکل، تغییرات کوچک و راهنمایی از طریق تلگرام.</p>
-        <div class="price" data-price="monthly">در گفتگو اعلام می‌شود</div>
-      </div>
-    </div>
-    <div class="offer" id="offer" hidden></div>
-  </div>
-</section>
-
-<section class="block" id="faq" style="padding-top:0">
-  <div class="wrap">
-    <h2>سوال‌هایی که سالن‌دارها می‌پرسند</h2>
-    <div class="faq">
+    <h2 class="rv">سوالات متداول</h2>
+    <div class="faq rv">
       <details>
-        <summary>اطلاعات مشتری‌های من با سالن دیگری قاطی نمی‌شود؟</summary>
-        <p>نه. برای هر سالن یک نسخه جدا با پایگاه داده جدا راه‌اندازی می‌شود.</p>
+        <summary>آراوین دقیقاً چه کاری انجام می‌دهد؟</summary>
+        <p>پیام‌های مشتری از تلگرام و بله را در یک پنل جمع می‌کند، نوبت را با تقویم شمسی ثبت می‌کند، تایید را خودکار برای مشتری می‌فرستد و پرونده هر مشتری را نگه می‌دارد.</p>
+      </details>
+      <details>
+        <summary>مشتری‌ها از چه کانال‌هایی می‌توانند پیام بدهند؟</summary>
+        <p>اکنون تلگرام و بله به پنل وصل است. کانال‌های دیگر با توافق جداگانه بررسی می‌شود.</p>
       </details>
       <details>
         <summary>اگر مشتری من تلگرام و بله ندارد چه می‌شود؟</summary>
         <p>می‌توانید مشتری را دستی در پنل ثبت کنید و نوبتش را بگیرید. گفتگوی زنده فعلاً با تلگرام و بله انجام می‌شود.</p>
       </details>
       <details>
+        <summary>کارکنان به چه چیزهایی دسترسی دارند؟</summary>
+        <p>کارمند گفتگو، مشتری‌ها و ثبت نوبت را می‌بیند. حذف مشتری، خدمات، کارکنان و تنظیمات فقط در اختیار مدیر است.</p>
+      </details>
+      <details>
+        <summary>اطلاعات سالن من با سالن دیگری قاطی نمی‌شود؟</summary>
+        <p>نه. برای هر سالن یک نسخه جدا با پایگاه داده جدا راه‌اندازی می‌شود.</p>
+      </details>
+      <details>
         <summary>سایت معرفی سالن هم دارد؟</summary>
-        <p>بله. صفحه معرفی سالن همراه پنل ساخته می‌شود. خدمات، آدرس، تلفن و ساعت کاری‌اش را از پنل مدیریت عوض می‌کنید و سایت خودکار به‌روز می‌شود.</p>
+        <p>بله. صفحه معرفی سالن همراه پنل ساخته می‌شود. خدمات، آدرس، تلفن و ساعت کاری را از پنل مدیریت عوض می‌کنید و سایت به‌روز می‌شود.</p>
       </details>
       <details>
-        <summary>برای شروع دامنه اختصاصی لازم است؟</summary>
-        <p>لازم نیست. با یک آدرس آماده شروع می‌کنید و هر وقت خواستید دامنه سالن را وصل می‌کنیم. هزینه دامنه جداست.</p>
-      </details>
-      <details>
-        <summary>پاسخ خودکار چطور کار می‌کند؟</summary>
-        <p>سوال‌ها و جواب‌ها را خودتان می‌نویسید. وقتی مشتری چیزی شبیه آن بپرسد، جواب آماده ارسال می‌شود. برای هر مشتری می‌توانید آن را روشن یا خاموش کنید.</p>
+        <summary>هزینه و شروع کار چطور است؟</summary>
+        <p>با یک تماس کوتاه نیاز سالن را مرور می‌کنیم، نسخه نمایشی را نشانتان می‌دهیم و هزینه را بر اساس همان نیاز اعلام می‌کنیم.</p>
       </details>
     </div>
   </div>
 </section>
 
-<section class="block" style="padding-top:0">
+<section class="sec dark final" id="final">
   <div class="wrap">
-        <h2>یک تماس کافی است</h2>
-    <p class="hint" style="margin-top:12px">با موبایل روی شماره بزنید تا تماس برقرار شود.</p>
-    <div class="bubbles">
-      <a class="bubble tg" href="tel:+989154182182" data-tel id="telBubble">تماس بگیرید: <bdi dir="ltr">0915 418 2182</bdi></a>
-      <a class="bubble mail" href="mailto:amirnd.work@gmail.com" id="mailBubble"><bdi dir="ltr">amirnd.work@gmail.com</bdi></a>
+    <svg width="26" height="32" viewBox="0 0 22 27" aria-hidden="true"><path d="M1 26V11a10 10 0 0 1 20 0v15z" fill="none" stroke="#B69A72" stroke-width="1.3"/></svg>
+    <h2>وقت آن است مدیریت سالن، به اندازه برند شما حرفه‌ای باشد.</h2>
+    <p class="sub">با یک تجربه بهتر برای تیم، مشتریان و آینده سالن خود شروع کنید.</p>
+    <div class="cta-row">
+      <a class="btn btn-ink" href="https://demo.andev.ir/login.html" target="_blank" rel="noopener">ورود به پنل نمایشی</a>
+      <a class="btn btn-ghost btn-lg" href="https://t.me/adehnavi">گفتگو در تلگرام</a>
     </div>
+    <div class="reach">
+      <a href="tel:09154182182"><bdi dir="ltr">۰۹۱۵ ۴۱۸ ۲۱۸۲</bdi></a>
+      <a href="mailto:amirnd.work@gmail.com"><bdi dir="ltr">amirnd.work@gmail.com</bdi></a>
+      <a href="https://t.me/adehnavi"><bdi dir="ltr">@adehnavi</bdi></a>
+    </div>
+  </div>
 </section>
 
 </main>
 
 <footer>
   <div class="wrap">
-    <span>ساخته شده توسط <a href="/">امیر نوری</a></span>
-    <span data-brand>آراوین</span>
+    <div class="foot">
+      <div>
+        <a class="logo" href="#top" aria-label="آراوین، بازگشت به بالا">
+          <svg width="22" height="27" viewBox="0 0 22 27" aria-hidden="true"><path d="M1 26V11a10 10 0 0 1 20 0v15z" fill="none" stroke="#B69A72" stroke-width="1.5"/></svg>
+          <span>آراوین</span>
+        </a>
+        <p>پنل مدیریت پیام، نوبت و پرونده مشتری برای سالن‌های زیبایی.</p>
+      </div>
+      <div>
+        <h4>آراوین</h4>
+        <ul>
+          <li><a href="#features">امکانات</a></li>
+          <li><a href="#fit">مناسب چه سالن‌هایی؟</a></li>
+          <li><a href="#demo">پنل نمایشی</a></li>
+          <li><a href="#faq">سوالات متداول</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>تماس</h4>
+        <ul>
+          <li><a href="tel:09154182182"><bdi dir="ltr">۰۹۱۵ ۴۱۸ ۲۱۸۲</bdi></a></li>
+          <li><a href="https://t.me/adehnavi">تلگرام</a></li>
+          <li><a href="mailto:amirnd.work@gmail.com">ایمیل</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© ۱۴۰۵ آراوین. همه حقوق محفوظ است.</span>
+      <span>ساخته شده توسط <a href="/">امیر نوری</a></span>
+    </div>
   </div>
 </footer>
 
+<a class="btn btn-ink btn-lg float-cta" id="floatCta" href="tel:09154182182">درخواست دمو</a>
+
 <script>
-/* تنظیمات صفحه: فقط همین بخش را ویرایش کنید */
-const CONFIG = {
-  brand: 'آراوین',
-  telegram: 'adehnavi',
-  email: 'amirnd.work@gmail.com',
-  phone: '09154182182',
-  demoSiteUrl: 'https://demo.andev.ir/',
-  demoPanelUrl: 'https://demo.andev.ir/login.html',
-  pricing: {
-    setup: '',       // مثلا: ۵ میلیون تومان
-    monthly: '',     // مثلا: ۸۰۰ هزار تومان
-    offer: ''        // متن پیشنهاد سالن‌های اول، اگر خالی باشد نمایش داده نمی‌شود
-  }
-};
-
 (function () {
-  var c = CONFIG;
+  var root = document.documentElement;
+  root.classList.add('go');
 
-  /* نام برند */
-  document.querySelectorAll('[data-brand]').forEach(function (el) { el.textContent = c.brand; });
-  document.title = c.brand + ': مدیریت نوبت و پیام مشتریان سالن';
+  function $(s, c) { return (c || document).querySelector(s); }
+  function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
 
-   /* لینک‌های تلگرام، تلفن و ایمیل */
-  var text = 'سلام، می‌خواهم نمونه ' + c.brand + ' را ببینم.';
-  var tgUrl = 'https://t.me/' + c.telegram + '?text=' + encodeURIComponent(text);
-  document.querySelectorAll('[data-tg]').forEach(function (a) { a.href = tgUrl; });
-  var tel = 'tel:+98' + c.phone.replace(/^0/, '');
-  document.querySelectorAll('[data-tel]').forEach(function (a) { a.href = tel; });
-  document.getElementById('mailBubble').href = 'mailto:' + c.email + '?subject=' + encodeURIComponent('درخواست نمونه ' + c.brand);
-  /* لینک‌های نمایشی */
-  if (c.demoSiteUrl || c.demoPanelUrl) {
-    var box = document.getElementById('demoLinks');
-    box.innerHTML = '';
-    if (c.demoSiteUrl) box.insertAdjacentHTML('beforeend', '<a class="btn btn-ghost" href="' + c.demoSiteUrl + '" target="_blank" rel="noopener">دیدن سایت سالن</a>');
-    if (c.demoPanelUrl) box.insertAdjacentHTML('beforeend', '<a class="btn btn-primary" href="' + c.demoPanelUrl + '" target="_blank" rel="noopener">ورود به پنل نمایشی</a>');
-  }
-
-  /* قیمت‌ها */
-  ['setup', 'monthly'].forEach(function (k) {
-    if (c.pricing[k]) document.querySelector('[data-price="' + k + '"]').textContent = c.pricing[k];
-  });
-  if (c.pricing.offer) {
-    var offer = document.getElementById('offer');
-    offer.textContent = c.pricing.offer;
-    offer.hidden = false;
-  }
-
-  /* تاریخ فردا در پیام تایید نمونه */
-  try {
-    var d = new Date();
-    d.setDate(d.getDate() + 1);
-    document.getElementById('confirmDate').textContent =
-      new Intl.DateTimeFormat('fa-IR-u-ca-persian', { day: 'numeric', month: 'long' }).format(d);
-  } catch (e) {}
-
-  /* تب‌ها */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
-  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
-  function select(i) {
-    tabs.forEach(function (t, k) {
-      var on = k === i;
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-      t.tabIndex = on ? 0 : -1;
-      panels[k].hidden = !on;
-    });
-  }
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { select(i); });
-    t.addEventListener('keydown', function (e) {
-      var j = null;
-      if (e.key === 'ArrowLeft') j = (i + 1) % tabs.length;
-      if (e.key === 'ArrowRight') j = (i - 1 + tabs.length) % tabs.length;
-      if (j !== null) { select(j); tabs[j].focus(); e.preventDefault(); }
-    });
-  });
-
-  /* نمونه گفتگو: یک بار هنگام باز شدن صفحه پخش می‌شود */
-  var items = Array.prototype.slice.call(document.querySelectorAll('.chat-body [data-msg]'));
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) {
-    items.forEach(function (el) { el.classList.add('show'); });
+  /* ظاهر شدن تدریجی بخش‌ها */
+  var rv = $$('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    rv.forEach(function (el) { io.observe(el); });
   } else {
-    var body = document.querySelector('.chat-body');
-    var i = 0;
-    var next = function () {
-      if (i >= items.length) return;
-      var el = items[i++];
-      var t = document.createElement('div');
-      t.className = 'msg typing ' + (el.classList.contains('in') ? 'in' : 'out');
-      t.setAttribute('aria-hidden', 'true');
-      t.innerHTML = '<i></i><i></i><i></i>';
-      body.insertBefore(t, el);
-      var wait = el.dataset.wait ? parseInt(el.dataset.wait, 10) : 900;
-      setTimeout(function () {
-        t.remove();
-        el.classList.add('show');
-        setTimeout(next, 500);
-      }, wait);
-    };
-    setTimeout(next, 700);
+    rv.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* نوار بالا */
+  var nav = $('#nav');
+  function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 12); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var burger = $('#burger'), menu = $('#menu');
+  burger.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'بستن منو' : 'باز کردن منو');
+  });
+  $$('a', menu).forEach(function (a) {
+    a.addEventListener('click', function () {
+      menu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* تب‌ها: هم برای امکانات، هم برای قبل و بعد */
+  function tabs(btns, panels, vertical) {
+    function sel(i, focus) {
+      btns.forEach(function (b, k) {
+        var on = k === i;
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+        b.tabIndex = on ? 0 : -1;
+      });
+      panels.forEach(function (p, k) { p.hidden = k !== i; });
+      if (focus) btns[i].focus();
+    }
+    btns.forEach(function (b, i) {
+      b.addEventListener('click', function () { sel(i); });
+      b.addEventListener('keydown', function (e) {
+        var n = btns.length, j = null;
+        var next = vertical ? 'ArrowDown' : 'ArrowLeft';
+        var prev = vertical ? 'ArrowUp' : 'ArrowRight';
+        if (e.key === next) j = (i + 1) % n;
+        else if (e.key === prev) j = (i - 1 + n) % n;
+        if (j !== null) { e.preventDefault(); sel(j, true); }
+      });
+    });
+  }
+  tabs($$('.ft'), $$('.fp'), true);
+  tabs($$('.seg button'), $$('.story .sp'), false);
+
+  /* دکمه شناور موبایل */
+  var fl = $('#floatCta'), hero = $('#heroCta'), fin = $('#final');
+  var seen = { h: true, f: false };
+  function upd() { fl.classList.toggle('show', !seen.h && !seen.f); }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) { seen.h = en[0].isIntersecting; upd(); }).observe(hero);
+    new IntersectionObserver(function (en) { seen.f = en[0].isIntersecting; upd(); }, { threshold: 0.2 }).observe(fin);
   }
 })();
 </script>
