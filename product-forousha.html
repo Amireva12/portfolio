@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فروشا: ربات فروش محصول برای کانال‌های تلگرام</title>
+<meta name="description" content="سفارش، رسید و موجودی، همه در تلگرام. ربات فروش برای فروشنده‌های کانالی، با پنل مدیریت و گزارش فروش.">
+<meta name="theme-color" content="#14161B">
+<link rel="canonical" href="https://www.andev.ir/product-foroosha.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:title" content="فروشا: ربات فروش محصول برای کانال‌های تلگرام">
+<meta property="og:description" content="سفارش، رسید و موجودی، همه در تلگرام. ربات دمو را همین حالا امتحان کنید.">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+@font-face{font-family:'Vazirmatn';src:url('/fonts/Vazirmatn/Vazirmatn-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Vazirmatn';src:url('/fonts/Vazirmatn/Vazirmatn-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Vazirmatn';src:url('/fonts/Vazirmatn/Vazirmatn-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Samim';src:url('/fonts/Samim/Samim-FD.woff2') format('woff2'),url('/fonts/Samim/Samim-FD.woff') format('woff');font-weight:400;font-display:swap}
+@font-face{font-family:'Samim';src:url('/fonts/Samim/Samim-Medium-FD.woff2') format('woff2'),url('/fonts/Samim/Samim-Medium-FD.woff') format('woff');font-weight:500;font-display:swap}
+@font-face{font-family:'Samim';src:url('/fonts/Samim/Samim-Bold-FD.woff2') format('woff2'),url('/fonts/Samim/Samim-Bold-FD.woff') format('woff');font-weight:700;font-display:swap}
+:root{
+--bg:#14161B;--panel:#1C1F26;--panel-2:#252933;--line:#2E333E;
+--text:#EEEBE6;--muted:#A0A6B1;--accent:#FF7A2F;--accent-ink:#1B1006;
+--r-lg:22px;--r-md:14px;--r-sm:10px;
+}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Samim',Tahoma,system-ui,sans-serif;font-size:17px;line-height:1.95;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.brand,.btn,.tab,summary{font-family:'Vazirmatn','Samim',Tahoma,sans-serif}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,92vw);margin-inline:auto}
+.block{padding:clamp(64px,9vw,120px) 0}
+h2{font-size:clamp(28px,3.6vw,42px);line-height:1.45;font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 24px;border-radius:var(--r-sm);font-weight:700;font-size:16px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:transform .15s,background .2s,border-color .2s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{background:#ff8d4d}
+.btn-ghost{border-color:var(--line);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--muted)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0}
+.brand{font-weight:700;font-size:24px;text-decoration:none;color:var(--accent)}
+.nav{display:flex;align-items:center;gap:28px}
+.nav a:not(.btn){text-decoration:none;color:var(--muted);font-size:16px}
+.nav a:not(.btn):hover{color:var(--text)}
+.hero{padding-top:clamp(28px,5vw,64px);padding-bottom:clamp(56px,8vw,100px)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,6vw,80px);align-items:center}
+h1{font-size:clamp(34px,5.2vw,60px);line-height:1.35;font-weight:700}
+.lead{color:var(--muted);font-size:19px;max-width:34em;margin-top:22px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.chat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.chat-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line);font-family:'Vazirmatn',sans-serif;font-size:15px;font-weight:500}
+.chat-head small{color:var(--muted);font-family:'Samim',sans-serif;font-size:13px}
+.chat-body{display:flex;flex-direction:column;gap:12px;padding:22px 20px;min-height:350px}
+.msg{max-width:82%;padding:11px 16px;border-radius:16px;font-size:16px;line-height:1.8}
+.msg.in{align-self:flex-start;background:var(--panel-2);border-end-start-radius:4px}
+.msg.out{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-end-end-radius:4px}
+.confirm{align-self:flex-end;max-width:90%;border:1px solid var(--line);border-inline-start:3px solid var(--accent);border-radius:var(--r-md);padding:12px 16px;font-size:15px}
+.confirm .cap{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin-top:8px}
+.confirm svg{flex:none}
+.js .chat-body [data-msg]:not(.show){display:none}
+.chat-body [data-msg].show{animation:pop .35s ease both}
+.typing{display:flex;gap:5px;padding:15px 17px}
+.typing i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.3;animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}
+.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.statement{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pain{font-family:'Vazirmatn',sans-serif;font-weight:700;font-size:clamp(24px,3.6vw,42px);line-height:1.6;color:var(--muted)}
+.pain.last{color:var(--text)}
+.answer{margin-top:34px;font-size:20px;color:var(--muted)}
+.answer b{color:var(--accent);font-family:'Vazirmatn',sans-serif}
+.tabs{display:flex;gap:6px;margin-top:34px;border-bottom:1px solid var(--line)}
+.tab{background:none;border:0;color:var(--muted);padding:14px 22px;font-size:17px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tab:hover{color:var(--text)}
+.tab[aria-selected="true"]{color:var(--text);border-bottom-color:var(--accent)}
+.panel{padding-top:18px}
+.panel:not([hidden]){animation:fade .3s ease both}
+.rows{list-style:none;padding:0}
+.rows li{display:grid;grid-template-columns:230px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--line)}
+.rows strong{font-family:'Vazirmatn',sans-serif;font-weight:700}
+.rows span{color:var(--muted)}
+.try-box{border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(28px,5vw,56px);display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:center}
+.try-box p{color:var(--muted);margin-top:10px;max-width:30em}
+.try-links{display:flex;flex-wrap:wrap;gap:12px}
+.steps{list-style:none;padding:0;margin-top:56px;counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.steps li{position:relative;border-top:2px solid var(--line);padding-top:30px}
+.steps li::before{counter-increment:s;content:counter(s,persian);position:absolute;top:-17px;inset-inline-start:0;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:'Vazirmatn',sans-serif;font-weight:700;font-size:15px}
+.steps h3{font-size:19px;margin-bottom:6px}
+.steps p{color:var(--muted);font-size:16px;line-height:1.85}
+.price-list{border-top:1px solid var(--line);margin-top:34px}
+.price-row{display:grid;grid-template-columns:1fr 1.5fr auto;gap:24px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--line)}
+.price-row h3{font-size:22px}
+.price-row p{color:var(--muted)}
+.price{font-family:'Vazirmatn',sans-serif;font-weight:700;font-size:20px}
+.offer{margin-top:28px;padding:18px 22px;border:1px dashed var(--accent);border-radius:var(--r-md)}
+.faq{margin-top:30px;max-width:820px}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:20px 0;font-weight:700;font-size:19px;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent);font-size:26px;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);padding-bottom:22px;max-width:40em}
+.bubbles{display:flex;flex-direction:column;gap:14px;margin-top:36px;max-width:540px}
+.bubble{display:block;text-decoration:none;padding:16px 22px;border-radius:20px;font-size:18px;transition:transform .2s,background .2s}
+.bubble:hover{transform:translateY(-2px)}
+.bubble.tel{background:var(--accent);color:var(--accent-ink);border-end-start-radius:5px;font-family:'Vazirmatn',sans-serif;font-weight:500}
+.bubble.mail{background:var(--panel-2);border:1px solid var(--line);border-end-start-radius:5px}
+.hint{color:var(--muted);font-size:15px;margin-top:6px}
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.btn-sm{padding:9px 18px;font-size:15px}
+.float-cta{display:none}
+.cta-note{flex-basis:100%;color:var(--muted);font-size:14px;margin-top:2px}
+@media (max-width:900px){
+.float-cta{display:flex;position:fixed;inset-inline:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:0 8px 28px rgba(0,0,0,.5)}
+body{padding-bottom:88px}
+.nav a:not(.btn){display:none}
+.hero-grid{grid-template-columns:1fr}
+.rows li{grid-template-columns:1fr;gap:4px}
+.steps{grid-template-columns:1fr 1fr;row-gap:44px}
+.price-row{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:520px){
+.steps{grid-template-columns:1fr}
+.tab{padding:12px 14px;font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){
+*{animation:none!important;transition:none!important}
+html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<a class="brand" href="#" data-brand>فروشا</a>
+<nav class="nav" aria-label="بخش‌های صفحه">
+<a href="#roles">امکانات</a>
+<a href="#pricing">هزینه</a>
+<a href="#faq">سوال‌ها</a>
+<a class="btn btn-primary btn-sm" href="https://t.me/nemounehshop_bot" target="_blank" rel="noopener">امتحان دمو</a>
+</nav>
+</header>
+</div>
+
+<main>
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<h1>فروش از کانال تلگرام، بدون سردرگمی</h1>
+<p class="lead">مشتری زیر پست محصول روی لینک می‌زند، سایز و رنگ را انتخاب می‌کند، آدرس می‌دهد و رسید می‌فرستد. شما فقط رسید را تایید می‌کنید، بقیه کار را ربات انجام می‌دهد.</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="https://t.me/nemounehshop_bot" target="_blank" rel="noopener">امتحان ربات دمو</a>
+<a class="btn btn-ghost" href="#roles">دیدن امکانات</a>
+<p class="cta-note">ربات دمو فقط برای نمایش است و خرید واقعی انجام نمی‌شود.</p>
+</div>
+</div>
+<div class="chat" role="group" aria-label="نمونه گفتگو با مشتری">
+<div class="chat-head"><span>گفتگو با مشتری</span><small>تلگرام</small></div>
+<div class="chat-body">
+<div class="msg in" data-msg>سلام، این کفش سایز ۳۸ رنگ مشکی موجوده؟</div>
+<div class="msg out" data-msg data-wait="1100">بله موجوده. لطفاً آدرس و شماره تماس رو بفرستید.</div>
+<div class="msg in" data-msg data-wait="900">تهران، خیابان نمونه، پلاک ۱۲، ۰۹۱۲۰۰۰۰۰۰۰</div>
+<div class="confirm" data-msg data-wait="1300">
+<div>سفارش شما ثبت شد. مبلغ <span id="priceSample">۴۲۰,۰۰۰</span> تومان را کارت‌به‌کارت کنید و رسید را همین‌جا بفرستید.</div>
+<div class="cap">
+<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#FF7A2F"/><path d="M4.5 8.3l2.3 2.3 4.7-4.9" fill="none" stroke="#1B1006" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+پیام خودکار ربات
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="block statement" aria-label="مشکل فروشنده‌های کانالی">
+<div class="wrap">
+<p class="pain">مشتری تو کانال پیام می‌دهد، شما دستی سایز و رنگ و آدرس می‌پرسید.</p>
+<p class="pain">رسید واریزی وسط چت گم می‌شود.</p>
+<p class="pain">دو نفر همزمان آخرین تکه موجودی را می‌خرند.</p>
+<p class="pain last">آخر ماه کسی نمی‌داند چقدر فروخته.</p>
+<p class="answer"><b data-brand>فروشا</b> همین چهار مشکل را می‌بندد.</p>
+</div>
+</section>
+
+<section class="block" id="roles">
+<div class="wrap">
+<h2>هر کس همان چیزی را می‌بیند که لازم دارد</h2>
+<div class="tabs" role="tablist" aria-label="نقش‌ها">
+<button class="tab" role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true">فروشنده</button>
+<button class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1">مشتری</button>
+<button class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">پشتیبانی</button>
+</div>
+<div class="panel" role="tabpanel" id="panel-0" aria-labelledby="tab-0">
+<ul class="rows">
+<li><strong>ساخت محصول</strong><span>عکس، سایز، رنگ و موجودی را وارد می‌کنید و یک لینک مستقیم برای پست کانال می‌گیرید.</span></li>
+<li><strong>سبد خرید چندمحصولی</strong><span>مشتری می‌تواند چند محصول را در یک سفارش انتخاب کند، نه یک سفارش جداگانه برای هر کالا.</span></li>
+<li><strong>تایید رسید</strong><span>رسید کارت‌به‌کارت را می‌بینید، با یک دکمه تایید یا رد می‌کنید، ربات خودش به مشتری خبر می‌دهد.</span></li>
+<li><strong>هشدار موجودی</strong><span>وقتی موجودی یک سایز یا رنگ کم شود، همان لحظه به شما پیام می‌دهد.</span></li>
+<li><strong>گزارش فروش</strong><span>تعداد سفارش، پرفروش‌ترین محصول و جمع فروش هر بازه را می‌بینید.</span></li>
+<li><strong>دکمه‌های ثابت</strong><span>محصول جدید، محصولات من، سفارش‌ها و تنظیمات، همیشه پایین صفحه در دسترس‌اند.</span></li>
+</ul>
+</div>
+<div class="panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" hidden>
+<ul class="rows">
+<li><strong>همان تلگرام همیشگی</strong><span>برنامه جدید نصب نمی‌کند. از همان لینک زیر پست محصول شروع می‌کند.</span></li>
+<li><strong>رزرو موجودی</strong><span>وقتی سفارش می‌دهد، آن تکه تا ۵ دقیقه برایش رزرو می‌شود. اگر نفر دوم همان را بخواهد، زمان باقی‌مانده را می‌بیند یا با آزاد شدنش باخبر می‌شود.</span></li>
+<li><strong>مراحل تمیز</strong><span>در هر مرحله فقط دکمه‌های همان مرحله را می‌بیند، پیام‌های قبلی خودشان را جمع می‌کنند.</span></li>
+<li><strong>پیگیری سفارش</strong><span>بعد از تایید رسید، تاییدیه نهایی سفارش را در همان گفتگو دریافت می‌کند.</span></li>
+</ul>
+</div>
+<div class="panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>
+<ul class="rows">
+<li><strong>دسترسی کامل</strong><span>برای پشتیبانی هر فروشنده، دسترسی به ربات و داده‌هایش همیشه برای مالک سرویس باز است.</span></li>
+<li><strong>ربات مدیریتی جدا</strong><span>ربات فروشنده‌ها از ربات مدیریت و پشتیبانی جدا است.</span></li>
+<li><strong>یک توکن برای هر فروشنده</strong><span>هر فروشنده ربات اختصاصی خودش را دارد، داده‌ها قاطی نمی‌شوند.</span></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="block" style="padding-top:0">
+<div class="wrap">
+<div class="try-box">
+<div>
+<h2>خودتان امتحان کنید</h2>
+<p>یک محصول نمونه را از ربات دمو بخرید و کل مسیر، از انتخاب سایز تا تایید رسید، را ببینید. این نسخه فقط برای نمایش است.</p>
+</div>
+<div class="try-links">
+<a class="btn btn-primary" href="https://t.me/nemounehshop_bot" target="_blank" rel="noopener">باز کردن ربات دمو</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="block" id="steps" style="padding-top:0">
+<div class="wrap">
+<h2>شروع کار چطور است</h2>
+<ol class="steps">
+<li><h3>گفتگو</h3><p>نوع محصول، تعداد سایز و رنگ‌ها و روش ارسال را با هم مرور می‌کنیم.</p></li>
+<li><h3>راه‌اندازی</h3><p>ربات اختصاصی شما را با توکن خودتان می‌سازیم و به پنل وصل می‌کنیم.</p></li>
+<li><h3>وارد کردن محصولات</h3><p>اولین محصولات و موجودی اولیه را با هم در پنل وارد می‌کنیم.</p></li>
+<li><h3>آموزش و شروع</h3><p>با پنل آشنا می‌شوید و لینک محصول را زیر پست کانال می‌گذارید.</p></li>
+</ol>
+</div>
+</section>
+
+<section class="block" id="pricing" style="padding-top:0">
+<div class="wrap">
+<h2>هزینه</h2>
+<div class="price-list">
+<div class="price-row">
+<h3>راه‌اندازی یک‌باره</h3>
+<p>ساخت ربات اختصاصی، وصل کردن به پنل، وارد کردن محصولات اولیه و آموزش.</p>
+<div class="price" data-price="setup">در گفتگو اعلام می‌شود</div>
+</div>
+<div class="price-row">
+<h3>پشتیبانی ماهانه</h3>
+<p>نگهداری، رفع مشکل و راهنمایی از طریق تلگرام.</p>
+<div class="price" data-price="monthly">در گفتگو اعلام می‌شود</div>
+</div>
+</div>
+<div class="offer" id="offer" hidden></div>
+</div>
+</section>
+
+<section class="block" id="faq" style="padding-top:0">
+<div class="wrap">
+<h2>سوال‌هایی که فروشنده‌ها می‌پرسند</h2>
+<div class="faq">
+<details>
+<summary>چند فروشنده می‌توانند همزمان از فروشا استفاده کنند؟</summary>
+<p>هر فروشنده ربات و پنل اختصاصی خودش را دارد. داده‌های فروشنده‌ها هیچ‌جا با هم قاطی نمی‌شوند.</p>
+</details>
+<details>
+<summary>درگاه پرداخت آنلاین دارد؟</summary>
+<p>فعلاً رسید کارت‌به‌کارت است و خودتان تایید می‌کنید. اتصال درگاه آنلاین در مسیر بعدی است.</p>
+</details>
+<details>
+<summary>اگر دو نفر همزمان آخرین موجودی را بخواهند؟</summary>
+<p>نفر اول تا ۵ دقیقه رزرو می‌کند. نفر دوم زمان باقی‌مانده را می‌بیند یا با آزاد شدنش همان لحظه باخبر می‌شود.</p>
+</details>
+<details>
+<summary>ساخت محصول با صدا و هوش مصنوعی چیست؟</summary>
+<p>قابلیتی در مسیر بعدی: کافی‌ست محصول را با یک پیام صوتی توضیح دهید، هوش مصنوعی مشخصاتش را در ربات ثبت می‌کند.</p>
+</details>
+</div>
+</div>
+</section>
+
+<section class="block" style="padding-top:0">
+<div class="wrap">
+<h2>یک تماس کافی است</h2>
+<p class="hint" style="margin-top:12px">برای راه‌اندازی فروشا روی کانال خودتان، تماس بگیرید یا پیامک بدهید.</p>
+<div class="bubbles">
+<a class="bubble tel" href="tel:+989154182182" id="phoneBubble"><bdi dir="ltr">۰۹۱۵ ۴۱۸ ۲۱۸۲</bdi></a>
+<a class="bubble mail" href="mailto:amirnd.work@gmail.com" id="mailBubble"><bdi dir="ltr">amirnd.work@gmail.com</bdi></a>
+</div>
+</div>
+</section>
+</main>
+<a class="btn btn-primary float-cta" href="https://t.me/nemounehshop_bot" target="_blank" rel="noopener">امتحان ربات دمو</a>
+
+<footer>
+<div class="wrap">
+<span>ساخته شده توسط <a href="/">امیر نوری</a></span>
+<a href="/product-aravin.html">آراوین، مدیریت مشتری و نوبت سالن</a>
+<span data-brand>فروشا</span>
+</div>
+</footer>
+
+<script>
+const CONFIG = {
+brand: 'فروشا',
+phone: '09154182182',
+email: 'amirnd.work@gmail.com',
+pricing: { setup: '', monthly: '', offer: '' }
+};
+
+(function () {
+var c = CONFIG;
+document.querySelectorAll('[data-brand]').forEach(function (el) { el.textContent = c.brand; });
+document.title = c.brand + ': ربات فروش محصول برای کانال‌های تلگرام';
+
+document.getElementById('mailBubble').href = 'mailto:' + c.email + '?subject=' + encodeURIComponent('درخواست راه‌اندازی ' + c.brand);
+if (c.phone) {
+var digits = c.phone.replace(/^0/, '');
+document.getElementById('phoneBubble').href = 'tel:+98' + digits;
+}
+
+['setup', 'monthly'].forEach(function (k) {
+if (c.pricing[k]) document.querySelector('[data-price="' + k + '"]').textContent = c.pricing[k];
+});
+if (c.pricing.offer) {
+var offer = document.getElementById('offer');
+offer.textContent = c.pricing.offer;
+offer.hidden = false;
+}
+
+var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+function select(i) {
+tabs.forEach(function (t, k) {
+var on = k === i;
+t.setAttribute('aria-selected', on ? 'true' : 'false');
+t.tabIndex = on ? 0 : -1;
+panels[k].hidden = !on;
+});
+}
+tabs.forEach(function (t, i) {
+t.addEventListener('click', function () { select(i); });
+t.addEventListener('keydown', function (e) {
+var j = null;
+if (e.key === 'ArrowLeft') j = (i + 1) % tabs.length;
+if (e.key === 'ArrowRight') j = (i - 1 + tabs.length) % tabs.length;
+if (j !== null) { select(j); tabs[j].focus(); e.preventDefault(); }
+});
+});
+
+var items = Array.prototype.slice.call(document.querySelectorAll('.chat-body [data-msg]'));
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduce) {
+items.forEach(function (el) { el.classList.add('show'); });
+} else {
+var body = document.querySelector('.chat-body');
+var i = 0;
+var next = function () {
+if (i >= items.length) return;
+var el = items[i++];
+var t = document.createElement('div');
+t.className = 'msg typing ' + (el.classList.contains('in') ? 'in' : 'out');
+t.setAttribute('aria-hidden', 'true');
+t.innerHTML = '<i></i><i></i><i></i>';
+body.insertBefore(t, el);
+var wait = el.dataset.wait ? parseInt(el.dataset.wait, 10) : 900;
+setTimeout(function () {
+t.remove();
+el.classList.add('show');
+setTimeout(next, 500);
+}, wait);
+};
+setTimeout(next, 700);
+}
+})();
+</script>
+</body>
+</html>
