@@ -1,157 +1,647 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" class="js">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>امیر نوری، توسعه‌دهنده وب | آراوین | فروشا</title>
-<meta name="description" content="نمونه‌کارهای امیر نوری؛ از جمله آراوین، سیستم مدیریت لید و نوبت‌دهی برای سالن‌های زیبایی.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMIR NOURI — Technology & Digital Solutions Studio</title>
+<meta name="description" content="استودیوی راهکارهای دیجیتال و هوش مصنوعی. مهندسی دقیق، راهکار هوشمند، اثر واقعی روی کسب‌وکار.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A0B0E; --surface:#14161C; --line:rgba(255,255,255,.09);
+  --text:#F2F1EE; --muted:#9397A3;
+  --gold:#C9A66B; --signal:#5B8CFF;
+  --f-en:'Space Grotesk',sans-serif; --f-fa:'Vazirmatn',Tahoma,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:var(--f-fa);line-height:1.9;overflow-x:hidden}
+.wrap{width:min(1180px,92vw);margin-inline:auto}
+
+.top{position:absolute;inset-inline:0;top:0;z-index:5;padding:28px 0}
+.top-in{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.logo b{font-family:var(--f-en);font-weight:600;font-size:19px;letter-spacing:.03em}
+.navlink{color:var(--muted);text-decoration:none;font-size:15px;border:1px solid var(--line);padding:9px 20px;border-radius:999px;transition:border-color .2s,color .2s}
+.navlink:hover{border-color:var(--gold);color:var(--text)}
+.top .menu{display:flex;align-items:center;gap:30px}
+.top .menu a{color:var(--muted);text-decoration:none;font-size:15px;transition:color .2s}
+.top .menu a:hover{color:var(--text)}
+@media (max-width:980px){.top .menu{display:none}}
+
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:110px;padding-bottom:70px;overflow:hidden}
+.field{position:absolute;inset:0;z-index:0}
+.field::before{content:"";position:absolute;inset:-10%;background:
+  radial-gradient(640px 420px at 78% 22%, rgba(91,140,255,.22), transparent 60%),
+  radial-gradient(520px 380px at 18% 82%, rgba(201,166,107,.16), transparent 60%);
+  filter:blur(10px)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 60% 40%,#000 40%,transparent 85%);mask-image:radial-gradient(ellipse 70% 60% at 60% 40%,#000 40%,transparent 85%)}
+.orb{position:absolute;width:420px;height:420px;border-radius:50%;right:-6%;top:12%;background:conic-gradient(from 140deg,rgba(91,140,255,.35),rgba(201,166,107,.25),transparent 60%);filter:blur(2px);opacity:.75;will-change:transform}
+.orb::after{content:"";position:absolute;inset:14%;border-radius:50%;border:1px solid rgba(255,255,255,.14)}
+.orb::before{content:"";position:absolute;inset:28%;border-radius:50%;border:1px solid rgba(201,166,107,.35)}
+
+.hero-in{position:relative;z-index:2;max-width:760px}
+.eyebrow{font-family:var(--f-en);font-size:13px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+h1{font-size:clamp(34px,5.6vw,62px);line-height:1.4;font-weight:900;margin-top:22px}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--signal),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:18px;max-width:34em;margin-top:24px}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:0 28px;border-radius:12px;font-family:var(--f-fa);font-weight:500;font-size:16px;text-decoration:none;border:1px solid transparent;transition:transform .15s,background .2s,border-color .2s}
+.btn:active{transform:translateY(1px)}
+.btn-fill{background:var(--text);color:var(--ink)}
+.btn-fill:hover{background:#fff}
+.btn-line{border-color:var(--line);color:var(--text)}
+.btn-line:hover{border-color:var(--gold)}
+.trust{display:flex;gap:28px;flex-wrap:wrap;margin-top:50px;padding-top:26px;border-top:1px solid var(--line)}
+.trust div b{display:block;font-family:var(--f-en);font-size:22px;font-weight:700}
+.trust div span{display:block;color:var(--muted);font-size:14px;margin-top:4px}
+
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.a>*{opacity:0;animation:rise .7s ease both}
+.a>*:nth-child(2){animation-delay:.1s}
+.a>*:nth-child(3){animation-delay:.2s}
+.a>*:nth-child(4){animation-delay:.3s}
+.a>*:nth-child(5){animation-delay:.4s}
+
+@media (max-width:760px){
+  .orb{width:260px;height:260px;right:-20%;top:4%}
+  .navlink{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .orb{transform:none!important}
+}
+
+/* ===== Services / Expertise (Phase 2) ===== */
+.sec{padding:clamp(80px,9vw,140px) 0}
+.sec+.sec{padding-top:0}
+.sec .eyebrow{display:block}
+.sec h2{font-size:clamp(28px,3.4vw,42px);font-weight:700;margin-top:16px;max-width:14em}
+.sec-intro{color:var(--muted);max-width:32em;margin-top:18px;font-size:17px}
+
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin-top:52px;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.svc{background:var(--surface);padding:30px 26px;transition:background .25s}
+.svc:hover{background:#191c23}
+.svc svg{width:26px;height:26px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.svc em{display:block;font-style:normal;font-family:var(--f-en);font-size:11px;letter-spacing:.1em;color:var(--muted);margin-top:16px}
+.svc h3{font-family:var(--f-fa);font-size:18px;font-weight:700;margin-top:6px}
+.svc p{color:var(--muted);font-size:15px;margin-top:8px;line-height:1.85}
+
+.stack-block{margin-top:64px;padding-top:40px;border-top:1px solid var(--line)}
+.stack-label{font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.chip{font-family:var(--f-en);font-size:14px;padding:9px 18px;border:1px solid var(--line);border-radius:999px;color:var(--text)}
+
+@media (max-width:980px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
+.proj{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(28px,5vw,64px);align-items:center;padding:56px 0;border-top:1px solid var(--line)}
+.proj:last-child{border-bottom:1px solid var(--line)}
+.proj.alt .proj-visual{order:2}
+.proj-visual{position:relative;aspect-ratio:4/3;border-radius:20px;border:1px solid var(--line);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.pv-aravin{background:radial-gradient(420px 320px at 70% 20%,rgba(91,140,255,.22),transparent 60%),radial-gradient(360px 300px at 20% 85%,rgba(201,166,107,.18),transparent 60%),var(--surface)}
+.pv-forousha{background:radial-gradient(420px 320px at 25% 15%,rgba(201,166,107,.22),transparent 60%),radial-gradient(360px 300px at 80% 85%,rgba(91,140,255,.18),transparent 60%),var(--surface)}
+.proj-visual svg{width:30%;max-width:92px;stroke:var(--text);fill:none;stroke-width:1.2;opacity:.9}
+.status-tag{position:absolute;top:16px;inset-inline-start:16px;font-family:var(--f-en);font-size:11px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;background:rgba(0,0,0,.4);border:1px solid var(--line)}
+.proj-copy em{display:block;font-style:normal;font-family:var(--f-en);font-size:12px;letter-spacing:.12em;color:var(--gold)}
+.proj-copy h3{font-size:clamp(24px,2.6vw,32px);font-weight:700;margin-top:10px}
+.proj-pitch{color:var(--muted);margin-top:14px;font-size:16px;max-width:36em}
+.proj-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+.proj-pair b{display:block;font-size:14px;color:var(--muted);margin-bottom:6px}
+.proj-pair span{font-size:15px;line-height:1.85}
+.proj .chips{margin-top:22px}
+.proj .cta-row{margin-top:26px}
+
+@media (max-width:860px){.proj{grid-template-columns:1fr}.proj.alt .proj-visual{order:0}}
+
+.tl-nums{display:flex;gap:10px;flex-wrap:wrap;margin-top:44px}
+.tl-n{width:54px;height:54px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-family:var(--f-en);font-weight:600;font-size:15px;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.tl-n:hover{border-color:var(--gold)}
+.tl-n[aria-selected="true"]{background:var(--text);color:var(--ink);border-color:var(--text)}
+.tl-panel{margin-top:36px;padding:clamp(26px,4vw,44px);border:1px solid var(--line);border-radius:18px;background:var(--surface);max-width:640px}
+.tl-panel em{display:block;font-style:normal;font-family:var(--f-en);font-size:12px;letter-spacing:.12em;color:var(--gold)}
+.tl-panel h3{font-size:24px;font-weight:700;margin-top:10px}
+.tl-panel p{color:var(--muted);margin-top:14px;font-size:16px;max-width:30em}
+
+.insight-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
+.insight{display:block;text-decoration:none;color:var(--text);padding:28px;border:1px solid var(--line);border-radius:18px;background:var(--surface);transition:border-color .25s,transform .25s}
+.insight:hover{border-color:var(--gold);transform:translateY(-4px)}
+.insight .meta{font-family:var(--f-en);font-size:12px;letter-spacing:.08em;color:var(--gold)}
+.insight h3{font-size:19px;margin-top:12px}
+.insight p{color:var(--muted);font-size:15px;margin-top:10px;line-height:1.85}
+.insight .more{display:inline-block;margin-top:16px;font-size:14px;color:var(--signal)}
+@media (max-width:760px){.insight-grid{grid-template-columns:1fr}}
+
+footer{padding:60px 0 36px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+.foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px}
+.foot h4{font-family:var(--f-en);font-size:13px;letter-spacing:.08em;color:var(--text);margin-bottom:14px}
+.foot li{list-style:none}
+.foot li a{display:inline-block;padding:4px 0;text-decoration:none;color:var(--muted);transition:color .2s}
+.foot li a:hover{color:var(--text)}
+.foot p{max-width:26em;margin-top:12px;font-size:15px}
+.copy{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:13px}
+@media (max-width:760px){.foot{grid-template-columns:1fr 1fr}.foot>div:first-child{grid-column:1/-1}}
+
+.contact-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,72px);align-items:start}
+.quick-cards{display:flex;flex-direction:column;gap:12px;margin-top:40px}
+.qc{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
+.qc:hover{border-color:var(--gold);transform:translateY(-2px)}
+.qc svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5;flex:none}
+.qc span{display:block;color:var(--muted);font-size:13px}
+.qc b{font-weight:500;font-family:var(--f-en)}
+.form-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,4vw,40px)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font-size:14px;color:var(--muted)}
+.field input,.field select,.field textarea{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--f-fa);font-size:15px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold)}
+.field textarea{resize:vertical;min-height:100px}
+.form-note{font-size:13px;color:var(--muted);margin-top:14px}
+@media (max-width:760px){.contact-wrap{grid-template-columns:1fr}.frow{grid-template-columns:1fr}}
+
+.rv{transition:opacity .6s ease,transform .6s ease}
+.js .rv:not(.in){opacity:0;transform:translateY(16px)}
+
+/* per-section signature reveals */
+@keyframes popScale{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:none}}
+@keyframes slideA{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:none}}
+@keyframes slideB{from{opacity:0;transform:translateX(-36px)}to{opacity:1;transform:none}}
+@keyframes tiltIn{from{opacity:0;transform:perspective(700px) rotateX(10deg) translateY(14px)}to{opacity:1;transform:perspective(700px) rotateX(0) translateY(0)}}
+
+.js .rv.pop:not(.in){opacity:0;transform:scale(.92) translateY(10px)}
+.rv.pop.in{animation:popScale .65s cubic-bezier(.22,.8,.3,1) both;animation-delay:calc(var(--d,0) * 80ms)}
+
+.js .rv.slide:not(.in){opacity:0;transform:translateX(36px)}
+.rv.slide.in{animation:slideA .75s cubic-bezier(.22,.8,.3,1) both}
+.proj.alt.rv.slide:not(.in){transform:translateX(-36px)}
+.proj.alt.rv.slide.in{animation:slideB .75s cubic-bezier(.22,.8,.3,1) both}
+
+.js .rv.step:not(.in){opacity:0;transform:scale(.75)}
+.rv.step.in{animation:popScale .5s ease both;animation-delay:calc(var(--d,0) * 90ms)}
+
+.js .rv.tilt:not(.in){opacity:0;transform:perspective(700px) rotateX(10deg) translateY(14px)}
+.rv.tilt.in{animation:tiltIn .7s cubic-bezier(.22,.8,.3,1) both;animation-delay:calc(var(--d,0) * 90ms)}
+
+/* subtle hover micro-interactions */
+.svc{transition:background .25s,transform .25s}
+.svc:hover{transform:translateY(-4px)}
+.svc svg{transition:stroke .25s,transform .25s}
+.svc:hover svg{stroke:var(--signal);transform:scale(1.08)}
+.proj-visual{transition:box-shadow .3s ease,transform .3s ease}
+.proj-visual:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(201,166,107,.35),0 26px 46px -24px rgba(91,140,255,.4)}
+.tl-n{transition:border-color .2s,color .2s,background .2s,transform .2s}
+.tl-n:hover{transform:translateY(-2px)}
+.chip{transition:border-color .2s,transform .2s}
+.chip:hover{border-color:var(--gold);transform:translateY(-2px)}
+.btn{transition:transform .2s,background .2s,border-color .2s}
+.btn-line:hover,.btn-ghost:hover{transform:translateY(-2px)}
+.btn-fill:hover{transform:translateY(-2px)}
+
+@media (prefers-reduced-motion:reduce){
+  .js .rv:not(.in),.js .rv.pop:not(.in),.js .rv.slide:not(.in),.js .rv.step:not(.in),.js .rv.tilt:not(.in){opacity:1;transform:none}
+  .svc:hover,.proj-visual:hover,.tl-n:hover,.chip:hover,.btn:hover{transform:none}
+}
+</style>
 </head>
-<body id="top">
+<body>
 
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="بازگشت به ابتدای صفحه">امیر نوری</a>
-    <nav class="site-nav" aria-label="ناوبری اصلی">
-      <a href="/blog/">بلاگ</a>
-      <a href="#work">کارها</a>
-      <a href="#contact">ارتباط</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="#top" aria-label="AMIR NOURI">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="34" y2="34"><stop offset="0" stop-color="#5B8CFF"/><stop offset="1" stop-color="#C9A66B"/></linearGradient></defs>
+        <path d="M17 3 L30 29 H23 L17 15 L11 29 H4 Z" fill="none" stroke="url(#g)" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M11 29 L22 9" stroke="url(#g)" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+      </svg>
+      <b>AMIR NOURI</b>
+    </a>
+    <nav class="menu">
+      <a href="#services">تخصص‌ها</a>
+      <a href="#work">نمونه‌کارها</a>
+      <a href="#process">فرآیند کار</a>
+      <a href="/blog/">مقالات</a>
     </nav>
-    <a href="#contact" class="header-cta">شروع یک پروژه <span aria-hidden="true">↙</span></a>
-  </header>
+    <a class="navlink" href="#contact">درخواست مشاوره</a>
+  </div>
+</header>
 
-  <section class="hero-scroll" style="--steps: 2;">
-    <div class="hero-pin">
-      <p class="reveal" data-step="0">
-        سلام، من <span class="accent">امیر نوری</span> هستم.
-      </p>
-      <p class="reveal" data-step="1">
-        سیستم‌های وب می‌سازم که کارهای واقعی کسب‌وکارهای کوچک رو راه می‌ندازن. 
-        نه یه ویترین، یه ابزار کاری.
-      </p>
-    </div>
-  </section>
-
-  <section class="status">
-    <div class="status-grid">
-      <div class="status-item">
-        <span class="status-label">الان</span>
-        <p>در حال ساخت <strong>فروشا</strong>؛ ربات اتوماتیک فروش و مدیریت کالا</p>
+<section class="hero" id="top">
+  <div class="field" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+  <div class="orb" id="orb" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-in a">
+      <p class="eyebrow">AI-FIRST DIGITAL SOLUTIONS STUDIO</p>
+      <h1>راهکار <em>هوشمند</em> برای کسب‌وکاری که می‌خواهد واقعاً رشد کند</h1>
+      <p class="lead">طراحی و توسعه نرم‌افزار، اتوماسیون فرایند و یکپارچه‌سازی هوش مصنوعی؛ از مهندسی دقیق تا اثر قابل‌اندازه‌گیری روی کسب‌وکار شما.</p>
+      <div class="cta-row">
+        <a class="btn btn-fill" href="#work">مشاهده پروژه‌ها</a>
+        <a class="btn btn-line" href="#contact">درخواست مشاوره</a>
       </div>
-      <div class="status-item">
-        <span class="status-label">آخرین نمونه‌کار</span>
-        <p><a href="#work-forousha">فروشا ↓</a></p>
-      </div>
-      <div class="status-item">
-        <span class="status-label">استک</span>
-        <p>Node.js · Express </p>
+      <div class="trust">
+        <div><b>+۴</b><span>سال تجربه عملی</span></div>
+        <div><b>۲</b><span>محصول در حال فروش (آراوین، فروشا)</span></div>
+        <div><b>End-to-end</b><span>از طراحی تا دیپلوی و پشتیبانی</span></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="work" id="work">
-    <h2 class="section-title">نمونه‌کارها</h2>
+<section class="sec" id="services">
+  <div class="wrap">
+    <p class="eyebrow rv">WHAT WE DO</p>
+    <h2 class="rv">تخصص‌ها، از ایده تا اجرا</h2>
+    <p class="sec-intro rv">هر پروژه ترکیبی از این مهارت‌هاست؛ بسته به نیاز واقعی کسب‌وکار شما.</p>
 
-    <article class="project" id="work-salon-crm">
-      <div class="project-head">
+    <div class="svc-grid">
+      <article class="svc rv pop" style="--d:0">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7L3 12l5 5M16 7l5 5-5 5"/></svg>
+        <em>FRONTEND DEVELOPMENT</em>
+        <h3>توسعه فرانت‌اند</h3>
+        <p>رابط‌های سریع، واکنش‌گرا و قابل‌استفاده، با جزئیات تمیز.</p>
+      </article>
+      <article class="svc rv pop" style="--d:1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></svg>
+        <em>BACKEND DEVELOPMENT</em>
+        <h3>توسعه بک‌اند</h3>
+        <p>منطق سمت سرور پایدار، امن و آماده برای مقیاس گرفتن.</p>
+      </article>
+      <article class="svc rv pop" style="--d:2">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+        <em>DATABASE ARCHITECTURE</em>
+        <h3>معماری پایگاه‌داده</h3>
+        <p>طراحی داده‌ای که با رشد محصول همراه می‌ماند، نه مانعش می‌شود.</p>
+      </article>
+      <article class="svc rv pop" style="--d:3">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17a4.5 4.5 0 0 1-1-8.9A5.5 5.5 0 0 1 16.5 6a4.5 4.5 0 0 1 1.3 8.9"/><path d="M12 11v8M9.5 16.5L12 19l2.5-2.5"/></svg>
+        <em>CLOUD &amp; DEVOPS</em>
+        <h3>زیرساخت ابری</h3>
+        <p>دیپلوی، مانیتورینگ و نگهداری روی سرویس‌های ابری قابل‌اتکا.</p>
+      </article>
+      <article class="svc rv pop" style="--d:4">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="3.3"/></svg>
+        <em>AI INTEGRATION</em>
+        <h3>یکپارچه‌سازی هوش مصنوعی</h3>
+        <p>پاسخ‌گوی خودکار و اتوماسیون مبتنی بر مدل‌های زبانی، در محصول واقعی.</p>
+      </article>
+      <article class="svc rv pop" style="--d:5">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 9h8M8 13h5"/><rect x="3" y="4" width="18" height="16" rx="3"/></svg>
+        <em>API DEVELOPMENT</em>
+        <h3>توسعه API</h3>
+        <p>اتصال سرویس‌ها و ربات‌ها به هم، تمیز، مستند و قابل‌نگهداری.</p>
+      </article>
+      <article class="svc rv pop" style="--d:6">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19l5-5 4 2 7-7"/><circle cx="9" cy="14" r="1"/><circle cx="13" cy="16" r="1"/><circle cx="20" cy="9" r="1"/></svg>
+        <em>UI/UX DESIGN</em>
+        <h3>طراحی تجربه کاربری</h3>
+        <p>از وایرفریم و جریان کاربر تا رابط نهایی و جزئیات تعاملی.</p>
+      </article>
+      <article class="svc rv pop" style="--d:7">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2.6"/><path d="M19 12a7 7 0 0 0-.3-2l2-1.5-2-3.5-2.3.9a7 7 0 0 0-1.7-1L14 2h-4l-.7 2.9a7 7 0 0 0-1.7 1l-2.3-.9-2 3.5L5.3 10A7 7 0 0 0 5 12a7 7 0 0 0 .3 2l-2 1.5 2 3.5 2.3-.9a7 7 0 0 0 1.7 1L10 22h4l.7-2.9a7 7 0 0 0 1.7-1l2.3.9 2-3.5-2-1.5c.2-.6.3-1.3.3-2Z"/></svg>
+        <em>BUSINESS PROCESS AUTOMATION</em>
+        <h3>اتوماسیون فرایند کسب‌وکار</h3>
+        <p>حذف کارهای تکراری با ربات‌های تلگرام/بله و اسکریپت‌های خودکار.</p>
+      </article>
+    </div>
+
+    <div class="stack-block rv">
+      <p class="stack-label">فناوری‌هایی که روزمره باهاشون کار می‌کنیم</p>
+      <div class="chips">
+        <span class="chip">Node.js</span>
+        <span class="chip">Express</span>
+        <span class="chip">Cloudflare Workers</span>
+        <span class="chip">D1</span>
+        <span class="chip">Turso</span>
+        <span class="chip">grammY</span>
+        <span class="chip">Vercel</span>
+        <span class="chip">JWT</span>
+        <span class="chip">Git</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="work">
+  <div class="wrap">
+    <p class="eyebrow rv">FEATURED PROJECTS</p>
+    <h2 class="rv">نمونه‌کارهای واقعی</h2>
+    <p class="sec-intro rv">محصولاتی که طراحی، ساخته و دیپلوی کرده‌ایم؛ قابل امتحان، نه فقط تصویر.</p>
+
+    <article class="proj rv slide">
+      <div class="proj-visual pv-aravin">
+        <span class="status-tag">LIVE DEMO · IN SALES</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M8 14h3M8 17h5"/></svg>
+      </div>
+      <div class="proj-copy">
+        <em>ARAVIN · SAAS FOR BEAUTY SALONS</em>
         <h3>آراوین</h3>
-        <span class="project-tag">مدیریت لید و نوبت</span>
-      </div>
-
-      <p class="project-line">
-        <strong>مسئله:</strong> لیدهای مشتری پخش بودن و بخشیشون گم می‌شد.
-      </p>
-      <p class="project-line">
-        <strong>راه‌حل:</strong> یه پنل ادمین ساختم که همه لیدها رو یه‌جا نشون می‌ده،
-        با چت درون‌سایتی به هر مشتری و پاسخ‌گوی خودکار مبتنی بر پایگاه‌دانش.
-      </p>
-      <p class="project-line">
-        <strong>ویژگی‌ها:</strong> نوبت‌دهی با تقویم جلالی و تشخیص تداخل زمانی،
-        برچسب مشتری VIP و وفادار، اعلان نوبت‌های پیش‌رو، کاتالوگ خدمات پویا.
-      </p>
-
-      <div class="project-details">
-        <div><span>نوع پروژه</span><strong>محصول اختصاصی</strong></div>
-        <div><span>تمرکز</span><strong>عملیات و تجربه مشتری</strong></div>
-      </div>
-
-      <div class="project-stack" aria-label="فناوری‌های استفاده شده">
-        <span>Node.js</span><span>Express</span><span>Jalali calendar</span>
-      </div>
-
-      <div class="project-actions">
-        <a class="project-link" href="product-aravin.html">معرفی آراوین</a>
-        <a class="project-link" href="https://demo.andev.ir/login.html" target="_blank" rel="noopener">دیدن پنل مدیریت</a>
+        <p class="proj-pitch">پنل مدیریت پیام و نوبت برای سالن‌های زیبایی؛ پیام‌های تلگرام و بله را یک‌جا جمع می‌کند و نوبت‌دهی را با تقویم شمسی و بدون تداخل انجام می‌دهد.</p>
+        <div class="proj-pair">
+          <div><b>مسئله</b><span>پیام مشتری دیر جواب می‌گرفت و نوبت‌ها روی کاغذ یا در حافظه می‌ماند.</span></div>
+          <div><b>راهکار</b><span>پنل یکپارچه با پاسخ خودکار، تقویم نوبت‌دهی و مدیریت مشتری.</span></div>
+        </div>
+        <div class="chips">
+          <span class="chip">Node.js</span><span class="chip">Turso</span><span class="chip">Telegram &amp; Bale Bots</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-line" href="https://demo.andev.ir/" target="_blank" rel="noopener">دیدن دمو</a>
+          <a class="btn btn-fill" href="/product-aravin.html">صفحه کامل محصول</a>
+        </div>
       </div>
     </article>
-        <article class="project" id="work-forousha">
-      <div class="project-head">
+
+    <article class="proj alt rv slide">
+      <div class="proj-visual pv-forousha">
+        <span class="status-tag">LIVE DEMO · IN SALES</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9a4 4 0 0 1 8 0M4 9h14l1 11H3z"/><path d="M6 13h10"/></svg>
+      </div>
+      <div class="proj-copy">
+        <em>FOROUSHA · TELEGRAM COMMERCE BOT</em>
         <h3>فروشا</h3>
-        <span class="project-tag">ربات فروش تلگرام</span>
-      </div>
-
-      <p class="project-line">
-        <strong>مسئله:</strong> فروشنده‌های کانالی همه‌چیز را دستی پیگیری می‌کردند: سایز و رنگ، آدرس، رسید واریزی و موجودی.
-      </p>
-      <p class="project-line">
-        <strong>راه‌حل:</strong> یه ربات ساختم که کل خرید را داخل تلگرام انجام می‌ده،
-        از لینک زیر پست کانال تا فاکتور، رسید کارت‌به‌کارت و تایید فروشنده.
-      </p>
-      <p class="project-line">
-        <strong>ویژگی‌ها:</strong> سبد خرید چندمحصولی، رزرو ۵ دقیقه‌ای موجودی،
-        هشدار کم شدن موجودی، گزارش فروش و ربات اختصاصی برای هر فروشنده.
-      </p>
-
-      <div class="project-details">
-        <div><span>نوع پروژه</span><strong>محصول اختصاصی</strong></div>
-        <div><span>تمرکز</span><strong>فروش خودکار در تلگرام</strong></div>
-      </div>
-
-      <div class="project-stack" aria-label="فناوری‌های استفاده شده">
-        <span>Telegram Bot API</span><span>grammY</span>
-      </div>
-
-      <div class="project-actions">
-        <a class="project-link" href="product-forousha.html">معرفی فروشا</a>
-        <a class="project-link" href="https://t.me/nemounehshop_bot" target="_blank" rel="noopener">امتحان ربات دمو</a>
+        <p class="proj-pitch">ربات فروش برای فروشنده‌های کانال تلگرام؛ سفارش، رزرو موجودی، تایید رسید و گزارش فروش، همه در یک مسیر خودکار.</p>
+        <div class="proj-pair">
+          <div><b>مسئله</b><span>سفارش و موجودی دستی مدیریت می‌شد و رسیدها وسط چت گم می‌شدند.</span></div>
+          <div><b>راهکار</b><span>ربات اختصاصی با رزرو موجودی زمان‌دار و تایید رسید یک‌لمسی.</span></div>
+        </div>
+        <div class="chips">
+          <span class="chip">Cloudflare Workers</span><span class="chip">D1</span><span class="chip">grammY</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-line" href="https://t.me/nemounehshop_bot" target="_blank" rel="noopener">باز کردن ربات دمو</a>
+          <a class="btn btn-fill" href="/product-forousha.html">صفحه کامل محصول</a>
+        </div>
       </div>
     </article>
+  </div>
+</section>
 
-  </section>
+<section class="sec" id="process">
+  <div class="wrap">
+    <p class="eyebrow rv">OUR PROCESS</p>
+    <h2 class="rv">فرآیند اجرای پروژه</h2>
+    <p class="sec-intro rv">شش مرحله ساختاریافته، از شناخت نیاز تا پشتیبانی پس از تحویل. روی هر شماره بزنید.</p>
 
-    <footer class="contact" id="contact">
-    <p class="contact-line">بیا با هم یه چیز واقعی بسازیم</p>
+    <div class="tl-nums" role="tablist" aria-label="مراحل فرآیند">
+      <button class="tl-n rv step" style="--d:0" role="tab" id="tl-0" aria-controls="tlp-0" aria-selected="true">01</button>
+      <button class="tl-n rv step" style="--d:1" role="tab" id="tl-1" aria-controls="tlp-1" aria-selected="false" tabindex="-1">02</button>
+      <button class="tl-n rv step" style="--d:2" role="tab" id="tl-2" aria-controls="tlp-2" aria-selected="false" tabindex="-1">03</button>
+      <button class="tl-n rv step" style="--d:3" role="tab" id="tl-3" aria-controls="tlp-3" aria-selected="false" tabindex="-1">04</button>
+      <button class="tl-n rv step" style="--d:4" role="tab" id="tl-4" aria-controls="tlp-4" aria-selected="false" tabindex="-1">05</button>
+      <button class="tl-n rv step" style="--d:5" role="tab" id="tl-5" aria-controls="tlp-5" aria-selected="false" tabindex="-1">06</button>
+    </div>
 
-    <div class="contact-cards">
-      <a class="contact-card" href="tel:+989154182182">
-        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="contact-label">تماس</span>
-        <span class="contact-value"><bdi dir="ltr">0915 418 2182</bdi></span>
+    <div class="tl-panel rv" role="tabpanel" id="tlp-0" aria-labelledby="tl-0">
+      <em>DISCOVERY</em>
+      <h3>شناخت کسب‌وکار</h3>
+      <p>با گفتگوی اولیه، هدف واقعی پروژه و محدودیت‌های کسب‌وکار شما را می‌فهمیم، نه فقط فهرست ویژگی‌های فنی را.</p>
+    </div>
+    <div class="tl-panel" role="tabpanel" id="tlp-1" aria-labelledby="tl-1" hidden>
+      <em>STRATEGY &amp; PLANNING</em>
+      <h3>تدوین راهکار و برنامه اجرایی</h3>
+      <p>معماری فنی، بازه زمانی و نقشه مراحل اجرا را مشخص و مستند می‌کنیم.</p>
+    </div>
+    <div class="tl-panel" role="tabpanel" id="tlp-2" aria-labelledby="tl-2" hidden>
+      <em>UI/UX DESIGN</em>
+      <h3>طراحی تجربه و رابط کاربری</h3>
+      <p>جریان کاربر و رابط نهایی را طراحی می‌کنیم، پیش از نوشتن خط اول کد اصلی.</p>
+    </div>
+    <div class="tl-panel" role="tabpanel" id="tlp-3" aria-labelledby="tl-3" hidden>
+      <em>DEVELOPMENT</em>
+      <h3>توسعه و پیاده‌سازی</h3>
+      <p>پیاده‌سازی مرحله‌به‌مرحله، با نسخه‌های قابل‌بازبینی در طول مسیر کار.</p>
+    </div>
+    <div class="tl-panel" role="tabpanel" id="tlp-4" aria-labelledby="tl-4" hidden>
+      <em>QUALITY ASSURANCE</em>
+      <h3>تست، امنیت و کنترل کیفیت</h3>
+      <p>پیش از انتشار، مسیرهای اصلی کاربر و نقاط حساس امنیتی را تست می‌کنیم.</p>
+    </div>
+    <div class="tl-panel" role="tabpanel" id="tlp-5" aria-labelledby="tl-5" hidden>
+      <em>LAUNCH &amp; SUPPORT</em>
+      <h3>راه‌اندازی، تحویل و پشتیبانی</h3>
+      <p>دیپلوی نهایی، آموزش استفاده از سیستم و پشتیبانی مستمر پس از تحویل.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="why">
+  <div class="wrap">
+    <p class="eyebrow rv">WHY CHOOSE US</p>
+    <h2 class="rv">چرا با ما کار کنید</h2>
+
+    <div class="svc-grid">
+      <article class="svc rv tilt" style="--d:0">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9l-5 4Z"/></svg>
+        <em>DIRECT ACCESS</em>
+        <h3>پاسخ‌گویی مستقیم</h3>
+        <p>مستقیم با همون کسی صحبت می‌کنید که پروژه را می‌سازد، نه واسطه یا تیم فروش.</p>
+      </article>
+      <article class="svc rv tilt" style="--d:1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
+        <em>FAST DELIVERY</em>
+        <h3>تحویل سریع</h3>
+        <p>چرخه کوتاه از ایده تا نسخه قابل‌استفاده، بدون بروکراسی اضافه.</p>
+      </article>
+      <article class="svc rv tilt" style="--d:2">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V6Z"/><path d="M9 12l2 2 4-4"/></svg>
+        <em>ONGOING SUPPORT</em>
+        <h3>پشتیبانی مستمر</h3>
+        <p>بعد از تحویل هم کنارتان هستیم؛ رفع مشکل و بهبود مداوم بخشی از همکاری است.</p>
+      </article>
+      <article class="svc rv tilt" style="--d:3">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16l-2 5 5-2 10-10a3.5 3.5 0 0 0-5-5Z"/><path d="M14 7l3 3"/></svg>
+        <em>PROVEN IN PRODUCTION</em>
+        <h3>تجربه عملی با محصول زنده</h3>
+        <p>آراوین و فروشا محصولاتی هستند که خودمان طراحی و ساخته‌ایم و الان در حال فروششان هستیم؛ نه فقط نمونه‌کار تمرینی.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="contact">
+  <div class="wrap">
+    <p class="eyebrow rv">LET'S TALK</p>
+    <h2 class="rv">شروع یک همکاری واقعی</h2>
+    <p class="sec-intro rv">نیاز پروژه را بنویسید؛ در کمتر از یک روز کاری پاسخ می‌دهیم.</p>
+
+    <div class="contact-wrap">
+      <div class="rv slide">
+        <div class="quick-cards">
+          <a class="qc" href="tel:09154182182">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c0 8.3 6.7 15 15 15l3-4-6-3-2 2a11 11 0 0 1-5-5l2-2-3-6Z"/></svg>
+            <div><b dir="ltr">۰۹۱۵ ۴۱۸ ۲۱۸۲</b><span>تماس مستقیم</span></div>
+          </a>
+          <a class="qc" href="mailto:amirnd.work@gmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
+            <div><b dir="ltr">amirnd.work@gmail.com</b><span>ایمیل</span></div>
+          </a>
+          <a class="qc" href="https://t.me/adehnavi" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11l6 2.5M21 4 15 20l-6-6.5M21 4 9 13.5v5" /></svg>
+            <div><b dir="ltr">@adehnavi</b><span>تلگرام</span></div>
+          </a>
+        </div>
+      </div>
+
+      <form class="form-card rv slide" id="leadForm">
+        <div class="frow">
+          <div class="field"><label for="f-name">نام</label><input id="f-name" name="name" type="text" required></div>
+          <div class="field"><label for="f-contact">تلفن یا تلگرام</label><input id="f-contact" name="contact" type="text" required></div>
+        </div>
+        <div class="field" style="margin-bottom:16px">
+          <label for="f-service">نوع خدمات</label>
+          <select id="f-service" name="service">
+            <option>توسعه وب (فرانت‌اند/بک‌اند)</option>
+            <option>ربات تلگرام/بله</option>
+            <option>اتوماسیون فرایند کسب‌وکار</option>
+            <option>یکپارچه‌سازی هوش مصنوعی</option>
+            <option>نامشخص، مشاوره می‌خواهم</option>
+          </select>
+        </div>
+        <div class="field" style="margin-bottom:16px">
+          <label for="f-budget">محدوده بودجه (اختیاری)</label>
+          <input id="f-budget" name="budget" type="text" placeholder="مثلاً ۲۰ تا ۴۰ میلیون تومان">
+        </div>
+        <div class="field">
+          <label for="f-msg">توضیح کوتاه پروژه</label>
+          <textarea id="f-msg" name="msg" required></textarea>
+        </div>
+        <div class="cta-row">
+          <button class="btn btn-fill" type="submit">ارسال درخواست</button>
+        </div>
+        <p class="form-note">فعلاً ارسال فرم یک ایمیل برایتان باز می‌کند؛ اتصال به پنل مدیریت در فاز بعد انجام می‌شود.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="insights">
+  <div class="wrap">
+    <p class="eyebrow rv">INSIGHTS</p>
+    <h2 class="rv">مقالات و دانش فنی</h2>
+    <p class="sec-intro rv">نکته‌های کوتاه و کاربردی، بر اساس همون پروژه‌هایی که ساختیم.</p>
+
+    <div class="insight-grid">
+      <a class="insight rv pop" style="--d:0" href="/blog/aravin-salon-messages.html">
+        <span class="meta">آبان ۱۴۰۵</span>
+        <h3>پیام‌های سالن را گم نکنید</h3>
+        <p>چهار عادت ساده برای نگه داشتن مشتری سالن و مدیریت نوبت‌ها بدون تداخل.</p>
+        <span class="more">ادامه مطلب ←</span>
       </a>
-
-      <a class="contact-card" href="https://t.me/adehnavi">
-        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21.5 3.5L2.5 11L9 13.5M21.5 3.5L18.5 20.5L9 13.5M21.5 3.5L9 13.5M9 13.5V19L12.3 15.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="contact-label">تلگرام</span>
-        <span class="contact-value"><bdi dir="ltr">@adehnavi</bdi></span>
-      </a>
-
-      <a class="contact-card" href="mailto:amirnd.work@gmail.com">
-        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/>
-          <path d="M3.5 6.5L12 13L20.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="contact-label">ایمیل</span>
-        <span class="contact-value"><bdi dir="ltr">amirnd.work@gmail.com</bdi></span>
+      <a class="insight rv pop" style="--d:1" href="/blog/forousha-sales-in-telegram.html">
+        <span class="meta">آبان ۱۴۰۵</span>
+        <h3>فروش در تلگرام بدون پیام‌های بی‌پایان</h3>
+        <p>چهار گرفتاری همیشگی فروشنده‌های کانالی و راه ساده‌ی خودکار کردن سفارش، رسید و موجودی.</p>
+        <span class="more">ادامه مطلب ←</span>
       </a>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script src="script.js"></script>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="#top" aria-label="AMIR NOURI">
+          <svg width="28" height="28" viewBox="0 0 34 34" aria-hidden="true">
+            <path d="M17 3 L30 29 H23 L17 15 L11 29 H4 Z" fill="none" stroke="#B69A72" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M11 29 L22 9" stroke="#B69A72" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+          </svg>
+          <b style="font-size:19px">AMIR NOURI</b>
+        </a>
+        <p>استودیوی راهکارهای دیجیتال و هوش مصنوعی؛ مهندسی دقیق، راهکار هوشمند، اثر واقعی روی کسب‌وکار.</p>
+      </div>
+      <div>
+        <h4>صفحات</h4>
+        <ul>
+          <li><a href="#services">تخصص‌ها</a></li>
+          <li><a href="#work">نمونه‌کارها</a></li>
+          <li><a href="#process">فرآیند کار</a></li>
+          <li><a href="/blog/">مقالات</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>تماس</h4>
+        <ul>
+          <li><a href="tel:09154182182" dir="ltr">۰۹۱۵ ۴۱۸ ۲۱۸۲</a></li>
+          <li><a href="https://t.me/adehnavi">تلگرام</a></li>
+          <li><a href="mailto:amirnd.work@gmail.com">ایمیل</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© ۱۴۰۵ AMIR NOURI. همه حقوق محفوظ است.</span>
+      <span>AI-First Digital Solutions Studio</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var orb = document.getElementById('orb');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !orb) return;
+  var tx = 0, ty = 0;
+  window.addEventListener('mousemove', function(e){
+    var x = (e.clientX / window.innerWidth - .5) * 24;
+    var y = (e.clientY / window.innerHeight - .5) * 24;
+    tx = x; ty = y;
+  });
+  (function loop(){
+    orb.style.transform = 'translate(' + tx + 'px,' + ty + 'px) rotate(' + (tx*.3) + 'deg)';
+    requestAnimationFrame(loop);
+  })();
+})();
+
+(function(){
+  var items = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  if (!items.length) return;
+  if (!('IntersectionObserver' in window)) { items.forEach(function(el){ el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  items.forEach(function(el){ io.observe(el); });
+})();
+
+(function(){
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.tl-n'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.tl-panel'));
+  if (!btns.length) return;
+  function select(i, focus){
+    btns.forEach(function(b,k){
+      var on = k === i;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach(function(p,k){ p.hidden = k !== i; });
+    if (focus) btns[i].focus();
+  }
+  btns.forEach(function(b,i){
+    b.addEventListener('click', function(){ select(i); });
+    b.addEventListener('keydown', function(e){
+      var n = btns.length, j = null;
+      if (e.key === 'ArrowLeft') j = (i+1) % n;
+      else if (e.key === 'ArrowRight') j = (i-1+n) % n;
+      if (j !== null){ e.preventDefault(); select(j, true); }
+    });
+  });
+})();
+
+(function(){
+  var form = document.getElementById('leadForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var d = new FormData(form);
+    var body = 'نام: ' + d.get('name') + '\nتماس: ' + d.get('contact') +
+      '\nنوع خدمات: ' + d.get('service') + '\nبودجه: ' + (d.get('budget') || 'اعلام نشده') +
+      '\n\nتوضیح پروژه:\n' + d.get('msg');
+    window.location.href = 'mailto:amirnd.work@gmail.com?subject=' +
+      encodeURIComponent('درخواست مشاوره از سایت') + '&body=' + encodeURIComponent(body);
+  });
+})();
+</script>
 </body>
 </html>
